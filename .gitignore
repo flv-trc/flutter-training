@@ -1,0 +1,82 @@
+# ----------------------------------------
+# General
+# ----------------------------------------
+.DS_Store
+*.log
+*.tmp
+*.swp
+*.lock
+*.iml
+
+# ----------------------------------------
+# Flutter & Dart
+# ----------------------------------------
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.melos_tool/
+
+# Symbolication / Obfuscation
+app.*.symbols
+app.*.map.json
+
+# ----------------------------------------
+# iOS
+# ----------------------------------------
+ios/Flutter/
+ios/.symlinks/
+ios/Pods/
+ios/Runner.xcworkspace
+ios/DerivedData/
+**/ios/Flutter/.last_build_id
+
+# ----------------------------------------
+# macOS
+# ----------------------------------------
+macos/Flutter/
+macos/.symlinks/
+macos/Pods/
+macos/Runner.xcworkspace
+macos/build/
+
+# ----------------------------------------
+# Android
+# ----------------------------------------
+.android/
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/local.properties
+
+# ----------------------------------------
+# Windows & Linux
+# ----------------------------------------
+windows/build/
+windows/Flutter/ephemeral/
+linux/build/
+linux/Flutter/ephemeral/
+
+# ----------------------------------------
+# Web
+# ----------------------------------------
+web/wasm/
+
+# ----------------------------------------
+# IDE / Editor
+# ----------------------------------------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# ----------------------------------------
+# Environment Files
+# ----------------------------------------
+.env
+.env.*
