@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/widgets/styledButton.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
@@ -6,7 +7,7 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var image = Image.asset(
-      'assets/image/login_background.jpg',
+      'assets/image/join_login_background.jpg',
       fit: BoxFit.cover,
     );
 
@@ -19,7 +20,10 @@ class RootScreen extends StatelessWidget {
       ),
     );
   }
+}
 
+// Mark - Widget helpers for the Root Screen
+extension RootScreenWidgets on RootScreen {
   Widget mainColumn() {
     var image = Image.asset(
       'assets/image/ntc_logo.png',
@@ -29,7 +33,7 @@ class RootScreen extends StatelessWidget {
     );
 
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -37,7 +41,7 @@ class RootScreen extends StatelessWidget {
           image,
           Spacer(),
           authButtons(),
-          SizedBox(height: 50),
+          SizedBox(height: 20),
         ],
       ),
     );
@@ -46,57 +50,15 @@ class RootScreen extends StatelessWidget {
   Widget authButtons() {
     return Row(
       children: [
-        Expanded(child: joinButton()),
+        Expanded(
+          child: primaryButton(label: 'Join', onPressed: () {}),
+        ),
         SizedBox(width: 20),
-        Expanded(child: loginButton()),
+        Expanded(
+          child: secondaryButton(label: 'Log in', onPressed: () {}),
+        ),
       ],
     );
   }
-
-  ElevatedButton loginButton() {
-    var loginStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.transparent,
-      foregroundColor: Colors.white,
-      shadowColor: Colors.transparent,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      shape: roundedRectangleShape(),
-    );
-
-    var text = Text('Log In');
-
-    return ElevatedButton(
-      onPressed: () {
-        // TODO: Handle Login Button
-      },
-      style: loginStyle,
-      child: text,
-    );
-  }
-
-  ElevatedButton joinButton() {
-    var joinStyle = ElevatedButton.styleFrom(
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.black,
-      shadowColor: Colors.transparent,
-      padding: EdgeInsets.symmetric(vertical: 16),
-      shape: roundedRectangleShape(),
-    );
-
-    var text = Text('Join');
-
-    return ElevatedButton(
-      onPressed: () {
-        // TODO: Handle Join Button
-      },
-      style: joinStyle,
-      child: text,
-    );
-  }
-
-  RoundedRectangleBorder roundedRectangleShape() {
-    return RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
-      side: BorderSide(color: Colors.white, width: 1),
-    );
-  }
+  
 }
