@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/screens/join.dart';
+import 'package:flutter_training/screens/login.dart';
 import 'package:flutter_training/widgets/styledButton.dart';
 
 class RootScreen extends StatelessWidget {
@@ -15,7 +18,7 @@ class RootScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned.fill(child: image),
-          SafeArea(child: Center(child: mainColumn())),
+          SafeArea(child: Center(child: mainColumn(context))),
         ],
       ),
     );
@@ -24,7 +27,7 @@ class RootScreen extends StatelessWidget {
 
 // Mark - Widget helpers for the Root Screen
 extension RootScreenWidgets on RootScreen {
-  Widget mainColumn() {
+  Widget mainColumn(BuildContext context) {
     var image = Image.asset(
       'assets/image/ntc_logo.png',
       color: Colors.white,
@@ -40,25 +43,41 @@ extension RootScreenWidgets on RootScreen {
           Spacer(),
           image,
           Spacer(),
-          authButtons(),
+          authButtons(context),
           SizedBox(height: 20),
         ],
       ),
     );
   }
 
-  Widget authButtons() {
+  Widget authButtons(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: primaryButton(label: 'Join', onPressed: () {}),
+          child: primaryButton(
+            label: 'Join',
+            onPressed: () {
+              Navigator.of(context).push(
+                CupertinoPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) => const JoinScreen(),
+                ),
+              );
+            },
+          ),
         ),
         SizedBox(width: 20),
         Expanded(
-          child: secondaryButton(label: 'Log in', onPressed: () {}),
+          child: secondaryButton(label: 'Log in', onPressed: () {
+            Navigator.of(context).push(
+                CupertinoPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+          }),
         ),
       ],
     );
   }
-  
 }
