@@ -1,0 +1,16 @@
+{
+    "results": [
+        {
+            "name": "Mock Exercise 1",
+            "description": "Here goes mock description for exercise 1"
+        },
+        {
+            "name": "Mock Exercise 2",
+            "description": "Here goes mock description for exercise 2"
+        },
+        {
+            "name": "Mock Exercise 3",
+            "description": "Here goes mock description for exercise 3"
+        }
+    ]
+}
