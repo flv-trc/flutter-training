@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/screens/login.dart';
 import 'package:flutter_training/screens/join.dart';
-import 'package:flutter_training/widgets/styledButton.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});

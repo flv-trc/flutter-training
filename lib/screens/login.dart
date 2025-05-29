@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/primary_textfield.dart';
-import 'package:flutter_training/widgets/styledButton.dart';
+import 'package:flutter_training/widgets/textfields.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

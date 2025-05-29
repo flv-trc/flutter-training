@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/styledButton.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 
 class JoinScreen extends StatelessWidget {
   const JoinScreen({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/app_button_style.dart';
+import 'package:flutter_training/widgets/button_style.dart';
 
 RoundedRectangleBorder roundedRectangleShape() => RoundedRectangleBorder(
   borderRadius: BorderRadius.circular(30),
@@ -41,7 +41,7 @@ ElevatedButton flatBlackButton({
     )
   );
   return ElevatedButton(
-    style: AppButtonStyle.flatBlack.style,
+     style: AppButtonStyle.flatBlack.style,
     onPressed: onPressed,
     child: childLabel,
   );
