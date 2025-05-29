@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/screens/login.dart';
+import 'package:flutter_training/features/login/login.dart';
 import 'package:flutter_training/screens/join.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 
@@ -72,7 +72,7 @@ extension RootScreenWidgets on RootScreen {
             Navigator.of(context).push(
                 CupertinoPageRoute(
                   fullscreenDialog: true,
-                  builder: (context) => const LoginScreen(),
+                  builder: (context) => Material(child: const LoginWrapper()),
                 ),
               );
           }),
