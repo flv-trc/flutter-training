@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget mainVStack(BuildContext context, LoginViewModel vm) {
     var emailTextField = PrimaryTextfield(
-      hintText: 'Email',
+      hintText: 'Email address',
       controller: vm.emailController,
       keyboardType: TextInputType.emailAddress,
       validator: vm.validateEmail,
@@ -68,7 +68,14 @@ class _LoginScreenState extends State<LoginScreen> {
               onTermsTap: onTermsTap,
               onPrivacyTap: onPrivacyTap,
             ),
-            flatBlackButton(label: 'SIGN IN', onPressed: vm.login),
+            flatBlackButton(
+              label: 'SIGN IN',
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  vm.login();
+                }
+              },
+            ),
             _notAMemberLabel(onJoinTap: vm.login),
           ],
         ),

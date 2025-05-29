@@ -5,8 +5,12 @@ class LoginViewModel with ChangeNotifier {
   final passwordController = TextEditingController();
 
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) return 'Email required';
-    if (!value.contains('@')) return 'Invalid Email';
+    if (value == null ||
+        value.isEmpty ||
+        value.length > 255 ||
+        !value.contains('@')) {
+      return 'Please enter a valid email address.';
+    }
     return null;
   }
 
