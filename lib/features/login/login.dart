@@ -75,13 +75,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             flatBlackButton(
               label: 'SIGN IN',
+              enabled: vm.isSignInButtonEnabled,
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (_formKey.currentState?.validate() == true) {
                   vm.login();
+                } else {
+                  vm.markValidationFailed();
                 }
               },
             ),
-            _notAMemberLabel(onJoinTap: vm.login),
+            _notAMemberLabel(onJoinTap: () {}),
           ],
         ),
       ),
