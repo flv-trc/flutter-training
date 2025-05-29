@@ -31,14 +31,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final vm = context.watch<LoginViewModel>();
 
-    return Form(key: _formKey, child: mainVStack(context, vm));
+    return Form(
+      key: _formKey,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: mainVStack(context, vm),
+      ),
+    );
   }
 
   Widget mainVStack(BuildContext context, LoginViewModel vm) {
     var emailTextField = PrimaryTextfield(
       hintText: 'Email address',
       controller: vm.emailController,
-      keyboardType: TextInputType.emailAddress,
       validator: vm.validateEmail,
     );
 
