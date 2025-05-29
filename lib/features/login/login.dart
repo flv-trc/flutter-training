@@ -195,15 +195,3 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
     );
   }
 }
-
-class LoginWrapper extends StatelessWidget {
-  const LoginWrapper({super.key});
-
-  @override
-  build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LoginViewModel(),
-      child: const LoginScreen(),
-    );
-  }
-}
