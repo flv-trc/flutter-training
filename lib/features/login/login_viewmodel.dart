@@ -17,6 +17,14 @@ class LoginViewModel with ChangeNotifier {
           validatePassword(passwordController.text) == null);
 
   String? validateEmail(String? value) {
+    final emailRegex = RegExp(r"^[\w\.-]+@[\w\.-]+\.\w{2,}$");
+    
+    if (value == null ||
+        value.isEmpty ||
+        value.length > 255 ||
+        !emailRegex.hasMatch(value)) {
+      return "Please enter a valid email address.";
+    }
     return null;
   }
 
