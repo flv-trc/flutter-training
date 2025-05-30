@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/styledButton.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 
 enum AppButtonStyle {
   primary,
-  secondary;
+  secondary,
+  flatBlack;
 
   ButtonStyle get style {
     switch (this) {
@@ -22,6 +23,14 @@ enum AppButtonStyle {
           shadowColor: Colors.transparent,
           padding: EdgeInsets.symmetric(vertical: 16),
           shape: roundedRectangleShape(),
+        );
+      case AppButtonStyle.flatBlack:
+        return ElevatedButton.styleFrom(
+          backgroundColor: Colors.black,
+          foregroundColor: Colors.white,
+          shadowColor: Colors.black,
+          padding: EdgeInsets.symmetric(vertical: 16),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         );
     }
   }
