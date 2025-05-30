@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:zxcvbn/zxcvbn.dart';
 
 class LoginViewModel with ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+  final _zxcvbn = Zxcvbn();
   bool _validationFailed = false;
+  double passwordScore = 0;
+  bool passwordMeterVisible = false;
 
   LoginViewModel() {
     emailController.addListener(_onChanged);
-    passwordController.addListener(_onChanged);
+    passwordController.addListener(_onChangedPassword);
   }
 
   bool get isSignInButtonEnabled =>
@@ -29,14 +33,28 @@ class LoginViewModel with ChangeNotifier {
   }
 
   String? validatePassword(String? value) {
-    return null;
+    if (passwordScore < 2) {
+      return "Please enter a password";
+    }
   }
 
   void _onChanged() {
     if (_validationFailed) {
       _validationFailed = false;
-      notifyListeners();
     }
+    notifyListeners();
+  }
+
+  void _onChangedPassword() {
+    if (!passwordController.text.isEmpty) {
+      final result = _zxcvbn.evaluate(passwordController.text);
+      passwordScore = result.score ?? 0;
+      passwordMeterVisible = true;
+    } else {
+      passwordMeterVisible = false;
+    }
+
+    _onChanged();
   }
 
   void markValidationFailed() {

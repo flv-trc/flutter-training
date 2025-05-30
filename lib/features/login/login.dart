@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/login/login_viewmodel.dart';
+import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
     var image = Image.asset('assets/image/nike.png', height: 40);
 
+    var passwordStrengthMeter = PasswordStrengthMeter(
+      score: vm.passwordScore,
+      visible: vm.passwordMeterVisible,
+    );
+    
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -68,6 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
             _mainLabel,
             emailTextField,
             passwordTextField,
+            passwordStrengthMeter,
             _forgotPasswordButton(onForgotPasswordTap),
             _legalDisclaimerRichLabel(
               onTermsTap: onTermsTap,
