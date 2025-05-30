@@ -36,6 +36,7 @@ class LoginViewModel with ChangeNotifier {
     if (passwordScore < 2) {
       return "Please enter a password";
     }
+    return null;
   }
 
   void _onChanged() {
@@ -46,7 +47,7 @@ class LoginViewModel with ChangeNotifier {
   }
 
   void _onChangedPassword() {
-    if (!passwordController.text.isEmpty) {
+    if (passwordController.text.isNotEmpty) {
       final result = _zxcvbn.evaluate(passwordController.text);
       passwordScore = result.score ?? 0;
       passwordMeterVisible = true;

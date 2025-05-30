@@ -1,10 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/login/login_viewmodel.dart';
+import 'package:flutter_training/screens/webview.dart';
 import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,12 +18,27 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  void onTermsTap() {
-    // TODO - On Terms Tap
+  void onTermsTap(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            WebViewScreen(url: 'https://google.com', title: 'title'),
+      ),
+    );
   }
 
   void onPrivacyTap() {
-    // TODO - On Privacy Tap
+    openUrl('https://google.com');
+  }
+
+  Future<void> openUrl(String url) async {
+    final uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   void onForgotPasswordTap() {
@@ -77,7 +94,9 @@ class _LoginScreenState extends State<LoginScreen> {
             passwordStrengthMeter,
             _forgotPasswordButton(onForgotPasswordTap),
             _legalDisclaimerRichLabel(
-              onTermsTap: onTermsTap,
+              onTermsTap: () {
+                onTermsTap(context);
+              },
               onPrivacyTap: onPrivacyTap,
             ),
             flatBlackButton(
@@ -157,12 +176,12 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
     var termsOfUse = TextSpan(
       text: "Terms of Use",
       style: const TextStyle(decoration: TextDecoration.underline),
-      recognizer: TapGestureRecognizer()..onTap = onPrivacyTap,
+      recognizer: TapGestureRecognizer()..onTap = onTermsTap,
     );
     var privacyPolicy = TextSpan(
       text: "Privacy Policy",
       style: const TextStyle(decoration: TextDecoration.underline),
-      recognizer: TapGestureRecognizer()..onTap = onTermsTap,
+      recognizer: TapGestureRecognizer()..onTap = onPrivacyTap,
     );
     var richText = RichText(
       textAlign: TextAlign.center,
