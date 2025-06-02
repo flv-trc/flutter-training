@@ -1,16 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/login/login_viewmodel.dart';
-import 'package:flutter_training/screens/webview.dart';
 import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
 import 'package:flutter_training/widgets/buttons.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../resources/fonts.dart';
 import '../../resources/images.dart';
-import '../../screens/dashboard_page.dart';
+import '../../routing/router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -37,36 +36,15 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _goToDashboard() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (_) => DashboardScreen(),
-        settings: RouteSettings(name: '/dashboard'),
-      ),
-      (Route<dynamic> route) => false,
-    );
+    Get.toNamed(AppRouter.dashboard);
   }
 
-  void _onTermsTap(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            WebViewScreen(url: _Constant.urlString, title: _Constant.urlString),
-      ),
-    );
+  void _onTermsTap() {
+    Get.toNamed(AppRouter.googleWebView);
   }
 
   void _onPrivacyTap() {
-    _openUrl(_Constant.urlString);
-  }
-
-  Future<void> _openUrl(String url) async {
-    final uri = Uri.parse(url);
-    try {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } catch (e) {
-      throw('Could not launchs $url');
-    }
+    Get.toNamed(AppRouter.googleExternalUrl);
   }
 
   void _onForgotPasswordTap() {
@@ -111,9 +89,7 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
             passwordStrengthMeter,
             _forgotPasswordButton(_onForgotPasswordTap),
             _legalDisclaimerRichLabel(
-              onTermsTap: () {
-                _onTermsTap(context);
-              },
+              onTermsTap: _onTermsTap,
               onPrivacyTap: _onPrivacyTap,
             ),
             flatBlackButton(
@@ -254,9 +230,6 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
 }
 
 class _Constant {
-  // Resources
-  static const urlString = "https://google.com";
-
   // Strings
   static const notAMember = "Not a member?";
   static const joinUs = "Join us";
