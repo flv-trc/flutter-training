@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void _goToWorkouts() {
+  void _goToDashboard() {
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
         builder: (_) => DashboardScreen(),
@@ -122,7 +122,7 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
               onPressed: () {
                 if (_formKey.currentState?.validate() == true) {
                   vm.login();
-                  _goToWorkouts();
+                  _goToDashboard();
                 } else {
                   vm.markValidationFailed();
                 }
