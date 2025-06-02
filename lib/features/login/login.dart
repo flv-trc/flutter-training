@@ -31,14 +31,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final vm = context.watch<LoginViewModel>();
 
-    return Form(key: _formKey, child: mainVStack(context, vm));
+    return Form(
+      key: _formKey,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: mainVStack(context, vm),
+      ),
+    );
   }
 
   Widget mainVStack(BuildContext context, LoginViewModel vm) {
     var emailTextField = PrimaryTextfield(
       hintText: 'Email address',
       controller: vm.emailController,
-      keyboardType: TextInputType.emailAddress,
       validator: vm.validateEmail,
     );
 
@@ -70,13 +75,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             flatBlackButton(
               label: 'SIGN IN',
+              enabled: vm.isSignInButtonEnabled,
               onPressed: () {
-                if (_formKey.currentState!.validate()) {
+                if (_formKey.currentState?.validate() == true) {
                   vm.login();
+                } else {
+                  vm.markValidationFailed();
                 }
               },
             ),
-            _notAMemberLabel(onJoinTap: vm.login),
+            _notAMemberLabel(onJoinTap: () {}),
           ],
         ),
       ),

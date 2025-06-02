@@ -7,30 +7,57 @@ enum AppButtonStyle {
   flatBlack;
 
   ButtonStyle get style {
+    Color resolveColor(Set<WidgetState> states, Color baseColor) {
+      if (states.contains(WidgetState.disabled)) {
+        return baseColor.withAlpha(128);
+      }
+      return baseColor;
+    }
+
     switch (this) {
       case AppButtonStyle.primary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          shadowColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: roundedRectangleShape(),
+        return ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.white),
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.black),
+          ),
+          shadowColor: WidgetStateProperty.all(Colors.transparent),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 16),
+          ),
+          shape: WidgetStateProperty.all(roundedRectangleShape()),
         );
       case AppButtonStyle.secondary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: Colors.transparent,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.transparent,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: roundedRectangleShape(),
+        return ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.transparent),
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.white),
+          ),
+          shadowColor: WidgetStateProperty.all(Colors.transparent),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 16),
+          ),
+          shape: WidgetStateProperty.all(roundedRectangleShape()),
         );
       case AppButtonStyle.flatBlack:
-        return ElevatedButton.styleFrom(
-          backgroundColor: Colors.black,
-          foregroundColor: Colors.white,
-          shadowColor: Colors.black,
-          padding: EdgeInsets.symmetric(vertical: 16),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        return ButtonStyle(
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.black),
+          ),
+          foregroundColor: WidgetStateProperty.resolveWith(
+            (states) => resolveColor(states, Colors.white),
+          ),
+          shadowColor: WidgetStateProperty.all(Colors.black),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 16),
+          ),
+          shape: WidgetStateProperty.all(
+            const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          ),
         );
     }
   }

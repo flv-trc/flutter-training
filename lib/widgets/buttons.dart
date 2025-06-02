@@ -33,6 +33,7 @@ ElevatedButton secondaryButton({
 ElevatedButton flatBlackButton({
   required String label,
   required VoidCallback onPressed,
+  bool enabled = true,
 }) {
   var childLabel = Text(
     label,
@@ -42,7 +43,7 @@ ElevatedButton flatBlackButton({
   );
   return ElevatedButton(
      style: AppButtonStyle.flatBlack.style,
-    onPressed: onPressed,
+    onPressed: enabled ? onPressed : null,
     child: childLabel,
   );
 }
