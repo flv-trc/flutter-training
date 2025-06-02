@@ -8,6 +8,9 @@ import 'package:flutter_training/widgets/buttons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../resources/fonts.dart';
+import '../../resources/images.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -17,33 +20,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-
-  void onTermsTap(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) =>
-            WebViewScreen(url: 'https://google.com', title: 'title'),
-      ),
-    );
-  }
-
-  void onPrivacyTap() {
-    openUrl('https://google.com');
-  }
-
-  Future<void> openUrl(String url) async {
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
-  void onForgotPasswordTap() {
-    // TODO - On Forgot Password Tap
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,21 +34,50 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void _onTermsTap(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>
+            WebViewScreen(url: _Constant.urlString, title: _Constant.urlString),
+      ),
+    );
+  }
+
+  void _onPrivacyTap() {
+    _openUrl(_Constant.urlString);
+  }
+
+  Future<void> _openUrl(String url) async {
+    final uri = Uri.parse(url);
+    try {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (e) {
+      throw('Could not launchs $url');
+    }
+  }
+
+  void _onForgotPasswordTap() {
+    // TODO - On Forgot Password Tap
+  }
+}
+
+extension _LoginScreenStateWidgets on _LoginScreenState {
   Widget mainVStack(BuildContext context, LoginViewModel vm) {
     var emailTextField = PrimaryTextfield(
-      hintText: 'Email address',
+      hintText: _Constant.emailAddress,
       controller: vm.emailController,
       validator: vm.validateEmail,
     );
 
     var passwordTextField = PrimaryTextfield(
-      hintText: 'Password',
+      hintText: _Constant.password,
       controller: vm.passwordController,
       obscureText: true,
       validator: vm.validatePassword,
     );
 
-    var image = Image.asset('assets/image/nike.png', height: 40);
+    var image = Image.asset(Images.nike);
 
     var passwordStrengthMeter = PasswordStrengthMeter(
       score: vm.passwordScore,
@@ -92,15 +97,15 @@ class _LoginScreenState extends State<LoginScreen> {
             emailTextField,
             passwordTextField,
             passwordStrengthMeter,
-            _forgotPasswordButton(onForgotPasswordTap),
+            _forgotPasswordButton(_onForgotPasswordTap),
             _legalDisclaimerRichLabel(
               onTermsTap: () {
-                onTermsTap(context);
+                _onTermsTap(context);
               },
-              onPrivacyTap: onPrivacyTap,
+              onPrivacyTap: _onPrivacyTap,
             ),
             flatBlackButton(
-              label: 'SIGN IN',
+              label: _Constant.signIn,
               enabled: vm.isSignInButtonEnabled,
               onPressed: () {
                 if (_formKey.currentState?.validate() == true) {
@@ -116,9 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
 
-extension _LoginScreenStateWidgets on _LoginScreenState {
   Widget _closeContainer(BuildContext context) {
     return Row(
       children: [
@@ -135,10 +138,10 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
   Widget get _mainLabel => Padding(
     padding: const EdgeInsets.all(20),
     child: Text(
-      'YOUR ACCOUNT FOR EVERYTHING NIKE',
+      _Constant.title,
       textAlign: TextAlign.center,
       style: const TextStyle(
-        fontFamily: 'Oswald',
+        fontFamily: Fonts.oswald,
         fontWeight: FontWeight.w700,
         fontSize: 26,
         color: Colors.black,
@@ -157,9 +160,9 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
         child: const Text(
-          'Forgotten your password?',
+          _Constant.forgottenPassword,
           style: TextStyle(
-            fontFamily: 'Oswald',
+            fontFamily: Fonts.oswald,
             fontSize: 14,
             fontWeight: FontWeight.w400,
             color: Colors.grey,
@@ -174,12 +177,12 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
     required VoidCallback onPrivacyTap,
   }) {
     var termsOfUse = TextSpan(
-      text: "Terms of Use",
+      text: _Constant.termsOfUse,
       style: const TextStyle(decoration: TextDecoration.underline),
       recognizer: TapGestureRecognizer()..onTap = onTermsTap,
     );
     var privacyPolicy = TextSpan(
-      text: "Privacy Policy",
+      text: _Constant.privacyPolicy,
       style: const TextStyle(decoration: TextDecoration.underline),
       recognizer: TapGestureRecognizer()..onTap = onPrivacyTap,
     );
@@ -192,9 +195,9 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
           height: 1.4,
         ),
         children: [
-          const TextSpan(text: "By logging in, you agree to Nike's "),
+          const TextSpan(text: "${_Constant.legalPrefix} "),
           privacyPolicy,
-          const TextSpan(text: ' and '),
+          const TextSpan(text: " ${_Constant.andConjunction} "),
           termsOfUse,
           const TextSpan(text: '.'),
         ],
@@ -209,7 +212,7 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
 
   Widget _notAMemberLabel({required VoidCallback onJoinTap}) {
     var joinUs = TextSpan(
-      text: 'Join us',
+      text: _Constant.joinUs,
       style: const TextStyle(
         color: Colors.black,
         fontWeight: FontWeight.w600,
@@ -229,10 +232,28 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
       text: TextSpan(
         style: textStyle,
         children: [
-          const TextSpan(text: 'Not a member? '),
+          const TextSpan(text: '${_Constant.notAMember} '),
           joinUs,
         ],
       ),
     );
   }
+}
+
+class _Constant {
+  // Resources
+  static const urlString = "https://google.com";
+
+  // Strings
+  static const notAMember = "Not a member?";
+  static const joinUs = "Join us";
+  static const privacyPolicy = "Privacy Policy";
+  static const termsOfUse = "Terms of Use";
+  static const title = "YOUR ACCOUNT FOR EVERYTHING NIKE";
+  static const forgottenPassword = "Forgotten your password?";
+  static const emailAddress = "Email address";
+  static const password = "Password";
+  static const signIn = "SIGN IN";
+  static const legalPrefix = "By logging in, you agree to Nike's";
+  static const andConjunction = "and";
 }
