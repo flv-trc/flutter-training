@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../resources/fonts.dart';
 import '../../resources/images.dart';
+import '../../screens/dashboard_page.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,6 +33,16 @@ class _LoginScreenState extends State<LoginScreen> {
         key: _formKey,
         child: mainVStack(context, vm),
       ),
+    );
+  }
+
+  void _goToWorkouts() {
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => DashboardScreen(),
+        settings: RouteSettings(name: '/dashboard'),
+      ),
+      (Route<dynamic> route) => false,
     );
   }
 
@@ -111,6 +122,7 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
               onPressed: () {
                 if (_formKey.currentState?.validate() == true) {
                   vm.login();
+                  _goToWorkouts();
                 } else {
                   vm.markValidationFailed();
                 }
