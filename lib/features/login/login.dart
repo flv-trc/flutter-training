@@ -25,10 +25,11 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final vm = context.watch<LoginViewModel>();
 
-    return Form(
-      key: _formKey,
-      child: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap:() => FocusScope.of(context).unfocus(),
+      child: Form(
+        key: _formKey,
         child: mainVStack(context, vm),
       ),
     );
