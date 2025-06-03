@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/features/login/login.dart';
 import 'package:flutter_training/features/login/login_wrapper.dart';
 import 'package:flutter_training/screens/join.dart';
 import 'package:flutter_training/widgets/buttons.dart';
