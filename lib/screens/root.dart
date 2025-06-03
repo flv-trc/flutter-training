@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/login/login_wrapper.dart';
+import 'package:flutter_training/resources/images.dart';
 import 'package:flutter_training/screens/join.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 
@@ -10,7 +11,7 @@ class RootScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var image = Image.asset(
-      'assets/image/join_login_background.jpg',
+      Images.rootBackground,
       fit: BoxFit.cover,
     );
 
@@ -29,7 +30,7 @@ class RootScreen extends StatelessWidget {
 extension RootScreenWidgets on RootScreen {
   Widget mainColumn(BuildContext context) {
     var image = Image.asset(
-      'assets/image/ntc_logo.png',
+      Images.ntcLogo,
       color: Colors.white,
       height: 250,
       fit: BoxFit.contain,
