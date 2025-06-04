@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart';
+import 'package:flutter_training/features/workout/workout_model.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../features/workout/workout_page.dart';
 import 'urls.dart';
 
 import '../features/login/login_wrapper.dart';
@@ -15,6 +16,7 @@ class AppRouter {
   static const String dashboard = '/dashboard';
   static const String googleWebView = '/googleWebView';
   static const String googleExternalUrl = '/googleExternalUrl';
+  static const String workout = '/workout';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -42,6 +44,14 @@ class AppRouter {
     GetPage(
       name: googleExternalUrl,
       page: () => const _ExternalUrlPage(url: Urls.google),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: workout,
+      page: () {
+        final workout = Get.arguments as WorkoutModel;
+        return WorkoutScreen(workout: workout);
+      },
       transition: Transition.cupertino,
     ),
   ];

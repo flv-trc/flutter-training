@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/base/base_page.dart';
 import 'package:flutter_training/features/login/login_viewmodel.dart';
 import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
@@ -18,19 +19,19 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with BasePageMixin<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<LoginViewModel>();
 
-    return GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap:() => FocusScope.of(context).unfocus(),
-      child: Form(
-        key: _formKey,
-        child: mainVStack(context, vm),
+    return Scaffold(
+      body: GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: unfocus,
+        child: Form(key: _formKey, child: mainVStack(context, vm)),
       ),
     );
   }
@@ -48,7 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onForgotPasswordTap() {
-    // TODO - On Forgot Password Tap
+    showSnackBar("Forgot Password tapped");
+  }
+
+  void _onJoinTap() {
+    showSnackBar("Join Us tapped");
   }
 }
 
@@ -104,7 +109,7 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
                 }
               },
             ),
-            _notAMemberLabel(onJoinTap: () {}),
+            _notAMemberLabel(onJoinTap: _onJoinTap),
           ],
         ),
       ),
