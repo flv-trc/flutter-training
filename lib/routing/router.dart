@@ -17,6 +17,10 @@ class AppRouter {
   static const String googleWebView = '/googleWebView';
   static const String googleExternalUrl = '/googleExternalUrl';
   static const String workout = '/workout';
+  static const String feed = '/feed';
+  static const String activity = '/activity';
+  static const String workouts = '/workouts';
+  static const String inbox = '/inbox';
 
   static final List<GetPage> getPages = [
     GetPage(

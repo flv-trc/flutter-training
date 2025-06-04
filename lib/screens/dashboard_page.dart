@@ -1,20 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/core/base/base_page.dart';
+import 'package:flutter_training/widgets/app_bottom_navigation_bar.dart';
+import 'package:get/get.dart';
 
-class DashboardScreen extends BaseScreen {
+import '../routing/router.dart';
+
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget buildBody(BuildContext context) {
-    return const Center(child: Text('Dashboard Page'));
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  int _selectedTabIndex = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Workouts")),
+      body: Center(child: Text("Workouts Screen")),
+      bottomNavigationBar: AppBottomNavigationBar(
+        selectedTabIndex: _selectedTabIndex,
+        onTabSelected: onTabSelected,
+      ),
+    );
   }
 
-  @override
-  Color get appBarColor => Colors.teal;
+  void onTabSelected(int index) {
+    if (index == _selectedTabIndex) return;
+    setState(() {
+      _selectedTabIndex = index;
+    });
 
-  @override
-  String get title => 'Dashboard';
-
-  @override
-  get automaticallyImplyLeading => false;
+    switch (index) {
+      case 0:
+        Get.toNamed(AppRouter.feed);
+        break;
+      case 1:
+        Get.toNamed(AppRouter.activity);
+        break;
+      case 2:
+        Get.toNamed(AppRouter.workouts);
+        break;
+      case 3:
+        Get.toNamed(AppRouter.inbox);
+        break;
+    }
+  }
 }
