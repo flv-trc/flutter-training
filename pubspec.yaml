@@ -11,6 +11,9 @@ dependencies:
     sdk: flutter
   provider: ^6.1.1
   zxcvbn: ^1.0.0
+  url_launcher: ^6.3.1
+  webview_flutter: ^4.13.0
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:

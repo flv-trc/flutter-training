@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'routing/app_route_observer.dart';
+import 'routing/router.dart';
+import 'package:get/get.dart';
 import 'screens/root.dart';
+
+final routeObserver = AppRouteObserver();
 
 void main() {
   runApp(const MainApp());
@@ -10,8 +15,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: RootScreen()
+    return GetMaterialApp(
+      getPages: AppRouter.getPages,
+      home: RootScreen(),
+      navigatorObservers: [routeObserver]
     );
   }
 }
