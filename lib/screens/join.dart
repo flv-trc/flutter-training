@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/buttons.dart';
+import 'package:flutter_training/core/base/base_page.dart';
 
-class JoinScreen extends StatelessWidget {
+class JoinScreen extends BaseScreen {
   const JoinScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: primaryButton(
-          label: 'Join Screen',
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
-    );
+  Color get appBarColor => Colors.white;
+  @override
+  String get title => "Join Screen";
+
+  @override
+  Widget buildBody(BuildContext context) {
+    return Center(child: Text("Join Screen"));
   }
 }
