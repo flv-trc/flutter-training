@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen>
-    with BasePageMixin<LoginScreen> {
+    with BaseScreenMixin<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override

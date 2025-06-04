@@ -22,7 +22,7 @@ abstract class BaseScreen extends StatelessWidget {
   Widget buildBody(BuildContext context);
 }
 
-mixin BasePageMixin<T extends StatefulWidget> on State<T> {
+mixin BaseScreenMixin<T extends StatefulWidget> on State<T> {
   void showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
