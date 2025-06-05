@@ -6,7 +6,7 @@ import '../features/workout/workout_page.dart';
 import 'urls.dart';
 
 import '../features/login/login_wrapper.dart';
-import '../screens/dashboard_page.dart';
+import '../features/dashboard/dashboard_page.dart';
 import '../screens/join.dart';
 import '../screens/webview.dart';
 
@@ -17,10 +17,6 @@ class AppRouter {
   static const String googleWebView = '/googleWebView';
   static const String googleExternalUrl = '/googleExternalUrl';
   static const String workout = '/workout';
-  static const String feed = '/feed';
-  static const String activity = '/activity';
-  static const String workouts = '/workouts';
-  static const String inbox = '/inbox';
 
   static final List<GetPage> getPages = [
     GetPage(
