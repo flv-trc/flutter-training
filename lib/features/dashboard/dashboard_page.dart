@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/app_bottom_navigation_bar.dart';
+
+import '../../widgets/app_bottom_navigation_bar.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});

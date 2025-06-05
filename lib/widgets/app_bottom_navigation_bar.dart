@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/features/dashboard/tab_contents/exports.dart';
+
+import '../features/dashboard/tab_contents/exports.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   final AppNavigationBarItem selectedTabIndex;

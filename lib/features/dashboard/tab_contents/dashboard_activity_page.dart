@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/app_bottom_navigation_bar.dart';
 
 import '../../../core/base/dashboard_base_tab_page.dart';
+import '../../../widgets/app_bottom_navigation_bar.dart';
 
 class DashboardActivityScreen extends DashboardBaseTabScreen {
   const DashboardActivityScreen({super.key});
