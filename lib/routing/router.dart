@@ -6,7 +6,7 @@ import '../features/workout/workout_page.dart';
 import 'urls.dart';
 
 import '../features/login/login_wrapper.dart';
-import '../screens/dashboard_page.dart';
+import '../features/dashboard/dashboard_page.dart';
 import '../screens/join.dart';
 import '../screens/webview.dart';
 
