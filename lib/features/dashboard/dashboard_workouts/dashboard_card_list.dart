@@ -28,7 +28,7 @@ class WorkoutCardList extends StatelessWidget {
         ? MediaQuery.of(context).size.width
         : MediaQuery.of(context).size.width * 0.7;
 
-    var listView = ListView.separated(
+    final listView = ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: workouts.length,
       separatorBuilder: (_, __) => const SizedBox(width: 1),
@@ -47,7 +47,7 @@ class WorkoutCardList extends StatelessWidget {
           titleLabel,
           fillScreen
               ? Expanded(child: listView)
-              : SizedBox(height: 250, child: listView),
+              : SizedBox(height: cardWidth * 5 / 4, child: listView),
         ],
       ),
     );
