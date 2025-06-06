@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/base/dashboard_base_tab_page.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
+import '../dashboard_workouts/dashboard_top_tab.dart';
 
 class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
   const DashboardWorkoutsScreen({super.key});
@@ -31,33 +32,15 @@ class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
             ),
             Expanded(
               child: TabBarView(
-              children: DashboardTopTab.values.map((tab) {
-                // Replace with your actual tab content widgets
-                return Center(child: Text('${tab.label} Content'));
-              }).toList(),
+                children: DashboardTopTab.values.map((tab) {
+                  // Replace with your actual tab content widgets
+                  return tab.tabBarContent;
+                }).toList(),
               ),
             ),
-            const Spacer(),
           ],
         ),
       ),
-    );
-  }
-}
-
-enum DashboardTopTab {
-  forYou("For You"),
-  browse("Browse"),
-  collecitions("Collections"),
-  plans("Plans");
-
-  final String label;
-  const DashboardTopTab(this.label);
-
-  Widget get widget {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-      child: Text(label, style: TextStyle(fontSize: 16)),
     );
   }
 }
