@@ -75,16 +75,21 @@ enum DashboardTopTab {
     ];
     switch (this) {
       case DashboardTopTab.forYou:
-        return DashboardCardList(
+        return WorkoutCardList(
           title: "New Workouts",
           workouts: workouts,
           fillScreen: true,
         );
       case DashboardTopTab.browse:
-        return DashboardCardList(
-          title: "Top Picks for You",
-          workouts: workouts,
-          fillScreen: false,
+        return Column(
+          children: [
+            WorkoutCardList(
+              title: "Top Picks for You",
+              workouts: workouts,
+              fillScreen: false,
+            ),
+            // To add collection card list
+          ],
         );
       case DashboardTopTab.collecitions:
         return Center(child: Text("Collections Content"));
