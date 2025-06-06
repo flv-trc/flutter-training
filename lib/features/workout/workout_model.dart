@@ -4,6 +4,10 @@ class WorkoutModel {
   final String description;
   final int duration; // in minutes
   final List<String> exercises;
+  final bool isFavorite;
+  final String difficultyLevel;
+  final String? imageUrl;
+  
 
   WorkoutModel({
     required this.id,
@@ -11,6 +15,9 @@ class WorkoutModel {
     required this.description,
     required this.duration,
     required this.exercises,
+    required this.isFavorite,
+    required this.difficultyLevel,
+    this.imageUrl,
   });
 
   @override

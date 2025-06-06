@@ -34,6 +34,7 @@ flutter:
     - assets/icon/
     - assets/image/
     - assets/json/
+    - assets/image/workouts/
     
 flutter_launcher_icons:
   android: true
