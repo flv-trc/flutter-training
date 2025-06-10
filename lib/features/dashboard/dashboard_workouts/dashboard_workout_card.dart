@@ -32,7 +32,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
 
   @override
   Widget build(BuildContext context) {
-    var bookmarkButton = IconButton(
+    final bookmarkButton = IconButton(
       icon: Container(
         decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
         padding: const EdgeInsets.all(6),
@@ -46,7 +46,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
       splashRadius: 24,
     );
 
-    var title = Text(
+    final title = Text(
       widget.workout.name,
       style: const TextStyle(
         color: Colors.white,
@@ -58,7 +58,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
       ),
     );
 
-    var subtitle = Text(
+    final subtitle = Text(
       '${widget.workout.duration} min, ${widget.workout.difficultyLevel}',
       style: const TextStyle(
         color: Colors.white,

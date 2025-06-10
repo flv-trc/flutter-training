@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/features/workout/workout_model.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../features/saved_workouts/saved_workouts.dart';
 import '../features/workout/workout_page.dart';
 import 'urls.dart';
 
@@ -17,6 +18,7 @@ class AppRouter {
   static const String googleWebView = '/googleWebView';
   static const String googleExternalUrl = '/googleExternalUrl';
   static const String workout = '/workout';
+  static const String savedWorkouts = '/savedWorkouts';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -51,6 +53,14 @@ class AppRouter {
       page: () {
         final workout = Get.arguments as WorkoutModel;
         return WorkoutScreen(workout: workout);
+      },
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: savedWorkouts,
+      page: () {
+        final savedWorkouts = Get.arguments as List<WorkoutModel>;
+        return SavedWorkoutsScreen(savedWorkouts: savedWorkouts);
       },
       transition: Transition.cupertino,
     ),

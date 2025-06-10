@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+
+import '../workout/workout_model.dart';
+import 'workout_list_tile.dart';
+
+class SavedWorkoutsScreen extends StatelessWidget {
+  final List<WorkoutModel> savedWorkouts;
+  const SavedWorkoutsScreen({super.key, required this.savedWorkouts});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Saved Workouts',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: body(context),
+    );
+  }
+
+  Widget body(BuildContext context) {
+    separatorBuilder(BuildContext context, int index) {
+      return const Divider(height: 1, color: Colors.black12);
+    }
+
+    itemBuilder(BuildContext context, int index) {
+      final workout = savedWorkouts[index];
+      return WorkoutListTile(workout: workout);
+    }
+
+    return Container(
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: ListView.separated(
+          itemBuilder: itemBuilder,
+          separatorBuilder: separatorBuilder,
+          itemCount: savedWorkouts.length,
+        ),
+      ),
+    );
+  }
+}

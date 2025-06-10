@@ -7,7 +7,8 @@ class WorkoutModel {
   final bool isFavorite;
   final String difficultyLevel;
   final String? imageUrl;
-  
+  final String? requiredEquipment;
+  final String type;
 
   WorkoutModel({
     required this.id,
@@ -18,10 +19,12 @@ class WorkoutModel {
     required this.isFavorite,
     required this.difficultyLevel,
     this.imageUrl,
+    this.requiredEquipment,
+    this.type = 'Undefined',
   });
 
   @override
   String toString() {
-    return 'WorkoutModel{id: $id, name: $name, description: $description, duration: $duration, exercises: $exercises}';
+    return 'WorkoutModel{id: $id, name: $name, description: $description, duration: $duration, exercises: $exercises, isFavorite: $isFavorite, difficultyLevel: $difficultyLevel, imageUrl: $imageUrl, requiredEquipment: $requiredEquipment, type: $type}';
   }
 }

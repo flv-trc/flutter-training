@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/mock/mock_workouts.dart';
+import 'package:get/get.dart';
 
 import '../../../core/base/dashboard_base_tab_page.dart';
+import '../../../routing/router.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import '../dashboard_workouts/dashboard_top_tab.dart';
 
@@ -11,7 +14,7 @@ class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
   AppNavigationBarItem get barItem => AppNavigationBarItem.workouts;
 
   @override
-  Widget? get trailingItem => const Icon(Icons.bookmark_border);
+  Widget? get trailingItem => IconButton(icon: Icon(Icons.bookmark_border), onPressed: _onBookmarkPressed);
 
   @override
   Widget buildBody(BuildContext context) {
@@ -42,5 +45,9 @@ class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
         ),
       ),
     );
+  }
+
+  void _onBookmarkPressed() {
+    Get.toNamed(AppRouter.savedWorkouts, arguments: mockWorkouts);
   }
 }
