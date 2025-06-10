@@ -29,8 +29,6 @@ class CollectionCardList extends StatelessWidget {
       },
     );
 
-    final cardWidth = MediaQuery.of(context).size.width * 0.9;
-
     final viewAllButton = TextButton(
       onPressed: () {
         final controller = DefaultTabController.of(context);
@@ -46,13 +44,18 @@ class CollectionCardList extends StatelessWidget {
 
     final topRow = Row(children: [titleLabel, Spacer(), viewAllButton]);
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        topRow,
-        SizedBox(height: cardWidth * 9 / 16, child: listView),
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cardWidth = constraints.maxWidth * 0.9;
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            topRow,
+            SizedBox(height: cardWidth * 9 / 16, child: listView),
+          ],
+        );
+      }
     );
   }
 }
