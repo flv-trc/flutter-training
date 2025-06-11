@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../routing/exports.dart';
 import '../../workout/workout_model.dart';
 
 class WorkoutCard extends StatefulWidget {
@@ -71,29 +72,34 @@ class _WorkoutCardState extends State<WorkoutCard> {
 
     return SizedBox(
       width: widget.cardWidth,
-      child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: widget.workout.imageUrl != null
-                  ? Image.asset(widget.workout.imageUrl!, fit: BoxFit.cover)
-                  : Container(color: Colors.black26),
-            ),
-
-            Positioned(top: 12, right: 12, child: bookmarkButton),
-
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 24,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 4,
-                children: [title, subtitle],
+      child: InkWell(
+        onTap: () {
+          Get.toNamed(AppRouter.workout, arguments: widget.workout);
+        },
+        child: Card(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: widget.workout.imageUrl != null
+                    ? Image.asset(widget.workout.imageUrl!, fit: BoxFit.cover)
+                    : Container(color: Colors.black26),
               ),
-            ),
-          ],
+
+              Positioned(top: 12, right: 12, child: bookmarkButton),
+
+              Positioned(
+                left: 16,
+                right: 16,
+                bottom: 24,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 4,
+                  children: [title, subtitle],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
