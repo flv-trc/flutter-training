@@ -5,7 +5,6 @@ final mockWorkouts = [
   WorkoutModel(
     id: '1',
     name: "Morning Yoga",
-    description: "Start your day with a refreshing yoga session.",
     isFavorite: false,
     duration: 8,
     exercises: [],
@@ -17,7 +16,6 @@ final mockWorkouts = [
   WorkoutModel(
     id: '2',
     name: "Evening Cardio",
-    description: "Boost your energy with an evening cardio workout.",
     isFavorite: true,
     duration: 12,
     exercises: [],
@@ -29,7 +27,6 @@ final mockWorkouts = [
   WorkoutModel(
     id: '3',
     name: "Strength Training",
-    description: "Build muscle with this strength training routine.",
     isFavorite: false,
     duration: 27,
     exercises: [],
@@ -41,7 +38,6 @@ final mockWorkouts = [
   WorkoutModel(
     id: '4',
     name: "HIIT Blast",
-    description: "High-Intensity Interval Training for quick results.",
     isFavorite: true,
     duration: 15,
     exercises: [],
@@ -53,7 +49,6 @@ final mockWorkouts = [
   WorkoutModel(
     id: '5',
     name: "Pilates Core",
-    description: "Strengthen your core with Pilates exercises.",
     isFavorite: false,
     duration: 20,
     exercises: [],
