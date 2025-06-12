@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "534720101182",
+    "project_id": "flavius-ntc",
+    "storage_bucket": "flavius-ntc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:534720101182:android:28f288e848bde182b60a6f",
+        "android_client_info": {
+          "package_name": "com.example.flutter_training"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmN-4XXiNkJnh5lQNNNexwYOG5B3K6rzw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

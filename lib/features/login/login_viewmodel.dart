@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/firebase/authentication_service.dart';
 import 'package:zxcvbn/zxcvbn.dart';
 
 class LoginViewModel with ChangeNotifier {
@@ -63,8 +64,9 @@ class LoginViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void login() {
-    // TODO - Perform Login
+  Future<bool> login() async {
+      final credential = await AuthenticationService().login(email: emailController.text.trim(), password: passwordController.text.trim());
+      return credential != null;
   }
 
   @override
