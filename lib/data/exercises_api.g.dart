@@ -9,6 +9,7 @@ part of 'exercises_api.dart';
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element,unnecessary_string_interpolations
 
 class _ExercisesApi implements ExercisesApi {
+  // ignore: unused_element_parameter
   _ExercisesApi(this._dio, {this.baseUrl, this.errorLogger}) {
     baseUrl ??= 'https://api.api-ninjas.com/v1/';
   }
