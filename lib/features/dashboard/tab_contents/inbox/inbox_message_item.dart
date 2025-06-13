@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/features/webview/webview_viewmodel.dart';
 
 import '../../../../routing/exports.dart';
 import 'inbox_message.dart';
