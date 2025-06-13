@@ -7,4 +7,12 @@ class Images {
   static const workouts3 = "assets/image/workouts/workout3.jpg";
   static const workouts4 = "assets/image/workouts/workout4.jpg";
   static const workouts5 = "assets/image/workouts/workout5.jpg";
+
+  static const workouts = [
+    workouts1,
+    workouts2,
+    workouts3,
+    workouts4,
+    workouts5,
+  ];
 }
