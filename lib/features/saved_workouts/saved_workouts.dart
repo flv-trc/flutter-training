@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/app_divider.dart';
 import '../workout/workout_model.dart';
 import 'workout_list_tile.dart';
 
@@ -23,7 +24,7 @@ class SavedWorkoutsScreen extends StatelessWidget {
 
   Widget body(BuildContext context) {
     separatorBuilder(BuildContext context, int index) {
-      return const Divider(height: 1, color: Colors.black12);
+      return const AppDivider();
     }
 
     itemBuilder(BuildContext context, int index) {
