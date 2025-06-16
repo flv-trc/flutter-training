@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/widgets/button_style.dart';
 
-RoundedRectangleBorder roundedRectangleShape() => RoundedRectangleBorder(
-  borderRadius: BorderRadius.circular(30),
-  side: BorderSide(color: Colors.white, width: 1),
-);
-
 ElevatedButton primaryButton({
   required String label,
   required VoidCallback onPressed,
@@ -30,27 +25,44 @@ ElevatedButton secondaryButton({
   );
 }
 
+ElevatedButton inversePrimaryButton({
+  required String label,
+  required VoidCallback onPressed,
+}) {
+  var childLabel = Text(label);
+  return ElevatedButton(
+    style: AppButtonStyle.inversePrimary.style,
+    onPressed: onPressed,
+    child: childLabel,
+  );
+}
+
+ElevatedButton inverseSecondaryButton({
+  required String label,
+  required VoidCallback onPressed,
+}) {
+  var childLabel = Text(label);
+  return ElevatedButton(
+    style: AppButtonStyle.inverseSecondary.style,
+    onPressed: onPressed,
+    child: childLabel,
+  );
+}
+
 ElevatedButton flatBlackButton({
   required String label,
   required VoidCallback onPressed,
   bool enabled = true,
 }) {
-  var childLabel = Text(
-    label,
-    style: TextStyle(
-      fontFamily: "Oswald"
-    )
-  );
+  var childLabel = Text(label, style: TextStyle(fontFamily: "Oswald"));
   return ElevatedButton(
-     style: AppButtonStyle.flatBlack.style,
+    style: AppButtonStyle.flatBlack.style,
     onPressed: enabled ? onPressed : null,
     child: childLabel,
   );
 }
 
-IconButton closeButton({
-  required VoidCallback onPressed,
-}) {
+IconButton closeButton({required VoidCallback onPressed}) {
   return IconButton(
     icon: const Icon(Icons.close),
     iconSize: 28,

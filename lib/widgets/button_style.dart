@@ -1,63 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/widgets/buttons.dart';
+
+RoundedRectangleBorder roundedRectangleShape({required Color? color}) =>
+    RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(30),
+      side: color != null
+          ? BorderSide(color: color ?? Colors.white, width: 1)
+          : BorderSide.none,
+    );
 
 enum AppButtonStyle {
   primary,
   secondary,
+  inversePrimary,
+  inverseSecondary,
   flatBlack;
 
-  ButtonStyle get style {
+  ButtonStyle buildStyle({
+    required Color background,
+    required Color foreground,
+    bool isRounded = true,
+    Color? borderColor,
+  }) {
     Color resolveColor(Set<WidgetState> states, Color baseColor) {
-      if (states.contains(WidgetState.disabled)) {
-        return baseColor.withAlpha(128);
-      }
-      return baseColor;
+      return states.contains(WidgetState.disabled)
+          ? baseColor.withAlpha(128)
+          : baseColor;
     }
 
+    return ButtonStyle(
+      backgroundColor: WidgetStateProperty.resolveWith(
+        (states) => resolveColor(states, background),
+      ),
+      foregroundColor: WidgetStateProperty.resolveWith(
+        (states) => resolveColor(states, foreground),
+      ),
+      shadowColor: WidgetStateProperty.all(Colors.transparent),
+      padding: WidgetStateProperty.all(
+        const EdgeInsets.symmetric(vertical: 16),
+      ),
+      shape: WidgetStateProperty.all(
+        isRounded
+            ? roundedRectangleShape(color: borderColor)
+            : const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      ),
+    );
+  }
+
+  ButtonStyle get style {
     switch (this) {
       case AppButtonStyle.primary:
-        return ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.white),
-          ),
-          foregroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.black),
-          ),
-          shadowColor: WidgetStateProperty.all(Colors.transparent),
-          padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 16),
-          ),
-          shape: WidgetStateProperty.all(roundedRectangleShape()),
-        );
+        return buildStyle(background: Colors.white, foreground: Colors.black);
+      case AppButtonStyle.inversePrimary:
+        return buildStyle(background: Colors.black, foreground: Colors.white);
       case AppButtonStyle.secondary:
-        return ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.transparent),
-          ),
-          foregroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.white),
-          ),
-          shadowColor: WidgetStateProperty.all(Colors.transparent),
-          padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 16),
-          ),
-          shape: WidgetStateProperty.all(roundedRectangleShape()),
+        return buildStyle(
+          background: Colors.transparent,
+          foreground: Colors.white,
+          borderColor: Colors.white,
+        );
+      case AppButtonStyle.inverseSecondary:
+        return buildStyle(
+          background: Colors.transparent,
+          foreground: Colors.black,
+          borderColor: Colors.black,
         );
       case AppButtonStyle.flatBlack:
-        return ButtonStyle(
-          backgroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.black),
-          ),
-          foregroundColor: WidgetStateProperty.resolveWith(
-            (states) => resolveColor(states, Colors.white),
-          ),
-          shadowColor: WidgetStateProperty.all(Colors.black),
-          padding: WidgetStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 16),
-          ),
-          shape: WidgetStateProperty.all(
-            const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-          ),
+        return buildStyle(
+          background: Colors.black,
+          foreground: Colors.white,
+          isRounded: false,
         );
     }
   }

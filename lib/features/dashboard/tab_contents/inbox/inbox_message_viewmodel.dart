@@ -1,12 +1,12 @@
 import 'inbox_packages.dart';
 
-final dashboardInboxViewModelProvider =
-    StateNotifierProvider<DasbhoardInboxViewModel, List<InboxMessage>>(
-      (ref) => DasbhoardInboxViewModel().._loadMessages(),
+final inboxMessageViewModelProvider =
+    StateNotifierProvider<InboxMessageViewModelProvider, List<InboxMessage>>(
+      (ref) => InboxMessageViewModelProvider().._loadMessages(),
     );
 
-class DasbhoardInboxViewModel extends StateNotifier<List<InboxMessage>> {
-  DasbhoardInboxViewModel() : super([]);
+class InboxMessageViewModelProvider extends StateNotifier<List<InboxMessage>> {
+  InboxMessageViewModelProvider() : super([]);
 
   void _loadMessages() {
     final random = Random();
