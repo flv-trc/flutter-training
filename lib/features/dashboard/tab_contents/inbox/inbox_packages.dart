@@ -9,3 +9,4 @@ export '../../../../resources/images.dart';
 export '../../../../widgets/app_divider.dart';
 export '../../../../widgets/app_bottom_navigation_bar.dart';
 export '../../../../core/base/dashboard_base_tab_page.dart';
+export '../../../../widgets/platform_adaptive_refresh_indicator.dart';

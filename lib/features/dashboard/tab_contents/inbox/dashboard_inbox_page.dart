@@ -20,23 +20,18 @@ class _InboxBody extends ConsumerWidget {
     final messages = ref.watch(inboxMessageViewModelProvider);
     final messagesVM = ref.read(inboxMessageViewModelProvider.notifier);
 
-    final listView = ListView.separated(
-      padding: EdgeInsets.zero,
-      itemCount: messages.length,
-      itemBuilder: (BuildContext context, int index) {
-        return InboxMessageItem(message: messages[index]);
-      },
-      separatorBuilder: (context, index) => Padding(
+    return Container(
+      color: Colors.grey[300],
+      child: PlatformAdaptiveRefreshIndicator(
+        onRefresh: messagesVM.refreshMessages,
+        itemCount: messages.length,
+        itemBuilder: (BuildContext context, int index) {
+          return InboxMessageItem(message: messages[index]);
+        },
+        separatorBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: const AppDivider(),
       ),
-    );
-
-    return Container(
-      color: Colors.grey[300],
-      child: RefreshIndicator(
-        onRefresh: messagesVM.refreshMessages,
-        child: listView,
       ),
     );
   }
