@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-
+import 'inbox_packages.dart';
 import '../../../../routing/exports.dart';
-import 'inbox_message.dart';
 
 class InboxMessageItem extends StatelessWidget {
   final InboxMessage message;
