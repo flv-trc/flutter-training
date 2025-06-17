@@ -26,6 +26,10 @@ class InboxMessageViewModelProvider extends StateNotifier<List<InboxMessage>> {
     await Future.delayed(const Duration(seconds: 1));
     _loadMessages();
   }
+
+  void removeMessage(InboxMessage message) {
+    state = List.from(state)..remove(message);
+  }
 }
 
 // Sample data for dev/testing
