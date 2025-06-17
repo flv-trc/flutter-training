@@ -1,6 +1,6 @@
 export 'dart:math';
 export 'package:flutter_riverpod/flutter_riverpod.dart';
-export 'inbox_message.dart';
+export '../../../../domain/model/inbox_message.dart';
 export 'inbox_message_viewmodel.dart';
 export 'inbox_message_item.dart';
 export 'package:flutter/material.dart';
