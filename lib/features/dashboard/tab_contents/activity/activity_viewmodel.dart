@@ -4,12 +4,12 @@ import '../../../../core/network/dio_client.dart';
 import '../../../../domain/model/activity.dart';
 
 final activityViewModelProvider =
-    StateNotifierProvider<ActivityViewmodel, List<Activity>>(
-      (ref) => ActivityViewmodel().._loadActivities(),
+    StateNotifierProvider<ActivityViewModel, List<Activity>>(
+      (ref) => ActivityViewModel().._loadActivities(),
     );
 
-class ActivityViewmodel extends StateNotifier<List<Activity>> {
-  ActivityViewmodel() : super([]);
+class ActivityViewModel extends StateNotifier<List<Activity>> {
+  ActivityViewModel() : super([]);
 
   void _loadActivities() async {
     final response = await DioClient.instance.get("/activities");
