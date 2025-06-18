@@ -14,7 +14,7 @@ class InboxPermissionScreen extends StatelessWidget {
     required this.onDeny,
   });
 
-  get _closeButton => Positioned(
+  Positioned get _closeButton => Positioned(
     top: 16,
     right: 16,
     child: GestureDetector(
@@ -27,7 +27,7 @@ class InboxPermissionScreen extends StatelessWidget {
     ),
   );
 
-  get _mainContent {
+  Center get _mainContent {
     final inboxIcon = Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,

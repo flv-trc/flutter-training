@@ -4,7 +4,7 @@ RoundedRectangleBorder roundedRectangleShape({required Color? color}) =>
     RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(30),
       side: color != null
-          ? BorderSide(color: color ?? Colors.white, width: 1)
+          ? BorderSide(color: color, width: 1)
           : BorderSide.none,
     );
 
