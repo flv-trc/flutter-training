@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/features/dashboard/dashboard_workouts/dashboard_top_tab.dart';
+import 'package:flutter_training/features/dashboard/tab_contents/workout/workouts_top_tab.dart';
 
 import '../models/collection_model.dart';
 import 'dashboard_collection_card.dart';
@@ -22,7 +22,7 @@ class CollectionCardList extends StatelessWidget {
     final listView = ListView.separated(
       scrollDirection: Axis.horizontal,
       itemCount: collections.length,
-      separatorBuilder: (_, __) => const SizedBox(width: 1),
+      separatorBuilder: (_, _) => const SizedBox(width: 1),
       itemBuilder: (context, index) {
         final collection = collections[index];
         return CollectionCard(collection: collection);
@@ -33,7 +33,7 @@ class CollectionCardList extends StatelessWidget {
       onPressed: () {
         final controller = DefaultTabController.of(context);
         controller.animateTo(
-          DashboardTopTab.collections.index,
+          WorkoutsTopTab.collections.index,
         );
       },
       child: const Text(

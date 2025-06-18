@@ -48,7 +48,7 @@ class PlatformAdaptiveRefreshIndicator extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemCount: itemCount,
         itemBuilder: itemBuilder,
-        separatorBuilder: separatorBuilder ?? (_, __) => const SizedBox.shrink(),
+        separatorBuilder: separatorBuilder ?? (_, _) => const SizedBox.shrink(),
       ),
     );
   }

@@ -33,7 +33,7 @@ class WorkoutCardList extends StatelessWidget {
         final listView = ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: workouts.length,
-          separatorBuilder: (_, __) => const SizedBox(width: 1),
+          separatorBuilder: (_, _) => const SizedBox(width: 1),
           itemBuilder: (context, index) {
             final workout = workouts[index];
             return WorkoutCard(workout: workout, cardWidth: cardWidth);
