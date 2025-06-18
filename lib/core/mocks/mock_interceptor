@@ -1,0 +1,47 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
+
+class MockInterceptor extends Interceptor {
+  final Duration simulatedDelay;
+
+  MockInterceptor({
+    this.simulatedDelay = const Duration(milliseconds: 300),
+  });
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+    try {
+      // Simulate network latency
+      if (simulatedDelay > Duration.zero) {
+        await Future.delayed(simulatedDelay);
+      }
+
+      final path = _getMockFilePath(options);
+
+      final jsonStr = await rootBundle.loadString(path);
+      final data = jsonDecode(jsonStr);
+
+      handler.resolve(Response(
+        requestOptions: options,
+        statusCode: 200,
+        data: data,
+      ));
+    } catch (e) {
+      handler.reject(DioException(
+        requestOptions: options,
+        type: DioExceptionType.unknown,
+        error: 'MockInterceptor error: $e',
+      ));
+    }
+  }
+
+  String _getMockFilePath(RequestOptions options) {
+    final method = options.method.toLowerCase();
+    final path = options.path.replaceAll(RegExp(r'^/+'), '').replaceAll('/', '_');
+
+    return 'assets/json/${method}_$path.json';
+  }
+}

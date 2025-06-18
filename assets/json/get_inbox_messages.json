@@ -1,0 +1,142 @@
+[
+  {
+    "id": "1",
+    "title": "New Workout Tips",
+    "body": "Check out our latest workout plans.",
+    "timestamp": "Just now",
+    "imageUrl": "assets/image/workouts/workout1.jpg"
+  },
+  {
+    "id": "2",
+    "title": "Mindfulness Reminder",
+    "body": "Take a deep breath and relax.",
+    "timestamp": "5 min ago",
+    "imageUrl": "assets/image/workouts/workout2.jpg"
+  },
+  {
+    "id": "3",
+    "title": "Hydration Tip",
+    "body": "Drink water regularly during your workout.",
+    "timestamp": "15 min ago",
+    "imageUrl": "assets/image/workouts/workout3.jpg"
+  },
+  {
+    "id": "4",
+    "title": "Stretch Alert",
+    "body": "Don’t forget your pre-workout stretch.",
+    "timestamp": "30 min ago",
+    "imageUrl": "assets/image/workouts/workout4.jpg"
+  },
+  {
+    "id": "5",
+    "title": "Nighttime Recovery",
+    "body": "Rest is just as important as training.",
+    "timestamp": "1 hour ago",
+    "imageUrl": "assets/image/workouts/workout5.jpg"
+  },
+  {
+    "id": "6",
+    "title": "New Routine Unlocked",
+    "body": "Try our new high-intensity interval workout.",
+    "timestamp": "2 hours ago",
+    "imageUrl": "assets/image/workouts/workout1.jpg"
+  },
+  {
+    "id": "7",
+    "title": "Mindset Matters",
+    "body": "Focus on consistency over perfection.",
+    "timestamp": "Today",
+    "imageUrl": "assets/image/workouts/workout2.jpg"
+  },
+  {
+    "id": "8",
+    "title": "Post-Workout Tips",
+    "body": "Refuel with protein after a tough session.",
+    "timestamp": "Today",
+    "imageUrl": "assets/image/workouts/workout3.jpg"
+  },
+  {
+    "id": "9",
+    "title": "Morning Motivation",
+    "body": "Start your day with movement.",
+    "timestamp": "Yesterday",
+    "imageUrl": "assets/image/workouts/workout4.jpg"
+  },
+  {
+    "id": "10",
+    "title": "Back on Track",
+    "body": "Missed a session? Pick it up today.",
+    "timestamp": "Yesterday",
+    "imageUrl": "assets/image/workouts/workout5.jpg"
+  },
+  {
+    "id": "11",
+    "title": "Energy Boost",
+    "body": "Try a light jog to energize your afternoon.",
+    "timestamp": "2 days ago",
+    "imageUrl": "assets/image/workouts/workout1.jpg"
+  },
+  {
+    "id": "12",
+    "title": "New Challenge",
+    "body": "Can you complete 3 full workouts this week?",
+    "timestamp": "3 days ago",
+    "imageUrl": "assets/image/workouts/workout2.jpg"
+  },
+  {
+    "id": "13",
+    "title": "Breathing Reminder",
+    "body": "Control your breathing for better endurance.",
+    "timestamp": "4 days ago",
+    "imageUrl": "assets/image/workouts/workout3.jpg"
+  },
+  {
+    "id": "14",
+    "title": "Healthy Habits",
+    "body": "Sleep, hydrate, and train smart.",
+    "timestamp": "Last week",
+    "imageUrl": "assets/image/workouts/workout4.jpg"
+  },
+  {
+    "id": "15",
+    "title": "Rest Day Notice",
+    "body": "Take a break — your body needs it.",
+    "timestamp": "Last week",
+    "imageUrl": "assets/image/workouts/workout5.jpg"
+  },
+  {
+    "id": "16",
+    "title": "Mindful Movement",
+    "body": "Be present during every rep.",
+    "timestamp": "1 week ago",
+    "imageUrl": "assets/image/workouts/workout1.jpg"
+  },
+  {
+    "id": "17",
+    "title": "Endurance Tip",
+    "body": "Pace yourself for longer workouts.",
+    "timestamp": "1 week ago",
+    "imageUrl": "assets/image/workouts/workout2.jpg"
+  },
+  {
+    "id": "18",
+    "title": "Stay Flexible",
+    "body": "Mobility routines reduce injury risk.",
+    "timestamp": "2 weeks ago",
+    "imageUrl": "assets/image/workouts/workout3.jpg"
+  },
+  {
+    "id": "19",
+    "title": "Weekly Recap",
+    "body": "You completed 4 sessions this week!",
+    "timestamp": "2 weeks ago",
+    "imageUrl": "assets/image/workouts/workout4.jpg"
+  },
+  {
+    "id": "20",
+    "title": "Challenge Accepted",
+    "body": "Your next workout is unlocked.",
+    "timestamp": "3 weeks ago",
+    "imageUrl": "assets/image/workouts/workout5.jpg"
+  }
+]

@@ -1,4 +1,3 @@
-import '../dashboard_inbox_page.dart';
 import '../inbox_packages.dart';
 import 'inbox_access_viewmodel.dart';
 import 'inbox_permission_page.dart';
