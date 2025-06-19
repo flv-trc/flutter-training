@@ -11,19 +11,22 @@ class ActivityItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      leading: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
-        child: Image.network(
-          activity.type.imageUrl,
-          width: 48,
-          height: 48,
-          fit: BoxFit.cover,
-          errorBuilder: (_, _, _) => const Icon(Icons.image_not_supported),
-        ),
-      ),
+      leading: (activity.type.imageUrl != null)
+          ? ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                activity.type.imageUrl ?? "",
+                width: 48,
+                height: 48,
+                fit: BoxFit.cover,
+                errorBuilder: (_, _, _) =>
+                    const Icon(Icons.image_not_supported),
+              ),
+            )
+          : null,
       title: Text(activity.type.displayName),
       subtitle: Text(
-        '${activity.formattedDate}, ${activity.formattedDuration}',
+        '${activity.date.appFormattedDate}, ${activity.formattedDuration}',
       ),
     );
   }
