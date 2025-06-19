@@ -1,3 +1,4 @@
+import '../../extensions/app_date_time.dart';
 import '../../resources/images.dart';
 
 class Activity {
@@ -61,68 +62,4 @@ extension ActivityTypeInfo on ActivityType {
         return Images.workouts[4];
     }
   }
-}
-
-extension AppDuration on Duration {
-  String get appFormattedDuration {
-  final hours = inHours;
-  final minutes = inMinutes.remainder(60).toString().padLeft(2, '0');
-  final seconds = inSeconds.remainder(60).toString().padLeft(2, '0');
-
-  return hours > 0
-      ? '$hours:$minutes:$seconds'
-      : '$minutes:$seconds';
-}
-}
-
-extension AppDateTime on DateTime {
-  String get appFormattedDate {
-    final now = DateTime.now();
-    final today = DateTime(now.year, now.month, now.day);
-
-    final diff = difference(today).inDays;
-
-    if (diff == 0) return 'Today';
-    if (diff == -1) return 'Yesterday';
-    if (diff == 1) return 'Tomorrow';
-
-    final dayOfWeek = _weekdays[weekday];
-    final monthShort = months[month].substring(0, 3);
-
-
-    return '$dayOfWeek, $day $monthShort';
-  }
-
-  String get appFormatTime {
-    final h = hour.toString().padLeft(2, '0');
-    final m = hour.toString().padLeft(2, '0');
-    return '$h:$m';
-  }
-
-  static const months = [
-    '',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
-  static const List<String> _weekdays = [
-    '',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
 }
