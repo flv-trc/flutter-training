@@ -34,4 +34,8 @@ class ActivityViewModel extends StateNotifier<List<Activity>> {
       .inMinutes;
 
   int get totalCount => state.length;
+
+  void add(Activity activity) {
+    state = [...state, activity];
+  }
 }

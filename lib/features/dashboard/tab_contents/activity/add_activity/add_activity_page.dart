@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 import 'package:flutter_training/widgets/platform_duration_picker.dart';
 
 import '../../../../../domain/model/activity.dart';
@@ -43,6 +44,23 @@ class AddActivityPage extends ConsumerWidget {
             onTap: () => _pickDuration(context, viewModel),
           ),
           AppDivider(),
+          Spacer(),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                width: double.infinity,
+                child: flatBlackButton(
+                  onPressed: () {
+                    viewModel.saveActivity();
+                    Navigator.pop(context);
+                  },
+                  label: "Next",
+                  enabled: viewModel.canSave
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

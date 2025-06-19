@@ -1,14 +1,15 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/features/dashboard/tab_contents/activity/activity_viewmodel.dart';
 
 import '../../../../../domain/model/activity.dart';
 
 final addActivityViewModelProvider =
     StateNotifierProvider<AddActivityViewModel, Activity>(
-      (ref) => AddActivityViewModel(),
+      (ref) => AddActivityViewModel(ref),
     );
 
 class AddActivityViewModel extends StateNotifier<Activity> {
-  AddActivityViewModel()
+  AddActivityViewModel(this._ref)
     : super(
         Activity(
           type: ActivityType.basketball,
@@ -16,6 +17,8 @@ class AddActivityViewModel extends StateNotifier<Activity> {
           duration: const Duration(minutes: 30),
         ),
       );
+
+  final Ref _ref;
 
   String get displayName {
     return state.type.displayName;
@@ -49,6 +52,12 @@ class AddActivityViewModel extends StateNotifier<Activity> {
     return state.duration.inSeconds.remainder(60).toInt();
   }
 
+  bool get canSave {
+    return state.type != ActivityType.none &&
+        state.duration.inSeconds > 0 &&
+        state.date.isAfter(DateTime.now());
+  }
+
   void setType(ActivityType type) {
     state = Activity(type: type, date: state.date, duration: state.duration);
   }
@@ -59,5 +68,9 @@ class AddActivityViewModel extends StateNotifier<Activity> {
 
   void setDuration(Duration duration) {
     state = Activity(type: state.type, date: state.date, duration: duration);
+  }
+
+  void saveActivity() {
+    _ref.read(activityViewModelProvider.notifier).add(state);
   }
 }
