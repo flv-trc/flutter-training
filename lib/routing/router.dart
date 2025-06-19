@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/features/dashboard/tab_contents/activity/add_activity/add_activity_page.dart';
 import 'package:flutter_training/features/workout/workout_model.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +20,7 @@ class AppRouter {
   static const String googleExternalUrl = '/googleExternalUrl';
   static const String workout = '/workout';
   static const String savedWorkouts = '/savedWorkouts';
+  static const String addActivity = '/add_activity';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -54,7 +56,7 @@ class AppRouter {
         final workout = Get.arguments as WorkoutModel;
         return WorkoutScreen(workout: workout);
       },
-      transition: Transition.cupertino,
+      transition: Transition.downToUp,
     ),
     GetPage(
       name: savedWorkouts,
@@ -64,6 +66,11 @@ class AppRouter {
       },
       transition: Transition.cupertino,
     ),
+    GetPage(
+      name: addActivity,
+      page: () => const AddActivityPage(),
+      transition: Transition.cupertino
+    )
   ];
 }
 

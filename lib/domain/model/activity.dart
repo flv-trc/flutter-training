@@ -1,27 +1,26 @@
+import '../../extensions/app_date_time.dart';
+import '../../resources/images.dart';
+
 class Activity {
-  final String title;
+  final ActivityType type;
   final DateTime date;
   final Duration duration;
-  final String imageUrl;
 
   const Activity({
-    required this.title,
+    required this.type,
     required this.date,
     required this.duration,
-    required this.imageUrl,
   });
 
   factory Activity.fromJson(Map<String, dynamic> json) {
     return Activity(
-      title: json['title'] as String,
-      date: DateTime.parse(json['date'] as String),
-      duration: Duration(minutes: json['durationMinutes'] as int),
-      imageUrl: json['imageUrl'],
+      type: ActivityType.values.firstWhere(
+        (e) => e.name == json['type'],
+        orElse: () => throw ArgumentError('Unknown activity type'),
+      ),
+      date: DateTime.parse(json['date']),
+      duration: Duration(minutes: json['durationMinutes']),
     );
-  }
-
-  String get formattedDate {
-    return '${_weekdays[date.weekday]}, ${date.day} ${_months[date.month].substring(0, 3)}';
   }
 
   String get formattedDuration {
@@ -30,33 +29,37 @@ class Activity {
   }
 
   String get fullMonth {
-    return _months[date.month];
+    return AppDateTime.months[date.month];
   }
+}
 
-  static const List<String> _weekdays = [
-    '',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ];
+enum ActivityType {
+  none("Select"),
+  americanFootball("American Football"),
+  basketball("Basketball"),
+  cycling("Cycling"),
+  running("Running"),
+  swimming("Swimming");
 
-  static const _months = [
-    '',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  final String displayName;
+  const ActivityType(this.displayName);
+}
+
+extension ActivityTypeInfo on ActivityType {
+  String? get imageUrl {
+    switch (this) {
+      case ActivityType.none:
+        return null;
+      case ActivityType.americanFootball:
+        return Images.workouts[0];
+      case ActivityType.basketball:
+        return Images.workouts[1];
+      case ActivityType.cycling:
+        return Images.workouts[2];
+      case ActivityType.running:
+        return Images.workouts[3];
+      case ActivityType.swimming:
+        return Images.workouts[4];
+    }
+  }
 }
