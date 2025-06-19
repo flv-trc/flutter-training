@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/routing/exports.dart';
 
 import '../../../../core/base/dashboard_base_tab_page.dart';
 import '../../../../widgets/app_bottom_navigation_bar.dart';
@@ -23,5 +24,7 @@ class DashboardActivityScreen extends DashboardBaseTabScreen {
     );
   }
 
-  void _onAddActivityPressed() {}
+  void _onAddActivityPressed() {
+    Get.toNamed(AppRouter.addActivity);
+  }
 }

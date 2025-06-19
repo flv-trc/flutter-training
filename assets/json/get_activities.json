@@ -1,38 +1,17 @@
 [
   {
-    "title": "Basketball",
-    "date": "2021-02-02T18:30:00.000Z",
-    "durationMinutes": 30,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/1162/1162506.png"
+    "type": "running",
+    "date": "2024-12-12T08:00:00",
+    "durationMinutes": 30
   },
   {
-    "title": "Morning Run",
-    "date": "2022-06-10T06:00:00.000Z",
-    "durationMinutes": 45,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/201/201818.png"
+    "type": "yoga",
+    "date": "2025-01-15T19:15:00",
+    "durationMinutes": 60
   },
   {
-    "title": "Cycling",
-    "date": "2023-11-20T09:00:00.000Z",
-    "durationMinutes": 90,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/747/747310.png"
-  },
-  {
-    "title": "Yoga Session",
-    "date": "2024-01-15T20:00:00.000Z",
-    "durationMinutes": 60,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/2965/2965567.png"
-  },
-  {
-    "title": "Swimming",
-    "date": "2025-06-01T15:30:00.000Z",
-    "durationMinutes": 40,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/3179/3179068.png"
-  },
-  {
-    "title": "Evening Walk",
-    "date": "2025-06-17T19:00:00.000Z",
-    "durationMinutes": 25,
-    "imageUrl": "https://cdn-icons-png.flaticon.com/512/2947/2947416.png"
+    "type": "basketball",
+    "date": "2025-06-10T17:00:00",
+    "durationMinutes": 45
   }
 ]

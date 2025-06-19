@@ -1,24 +1,24 @@
 class Activity {
-  final String title;
+  final ActivityType type;
   final DateTime date;
   final Duration duration;
-  final String imageUrl;
 
   const Activity({
-    required this.title,
+    required this.type,
     required this.date,
     required this.duration,
-    required this.imageUrl,
   });
 
   factory Activity.fromJson(Map<String, dynamic> json) {
-    return Activity(
-      title: json['title'] as String,
-      date: DateTime.parse(json['date'] as String),
-      duration: Duration(minutes: json['durationMinutes'] as int),
-      imageUrl: json['imageUrl'],
-    );
-  }
+  return Activity(
+    type: ActivityType.values.firstWhere(
+      (e) => e.name == json['type'],
+      orElse: () => throw ArgumentError('Unknown activity type'),
+    ),
+    date: DateTime.parse(json['date']),
+    duration: Duration(minutes: json['durationMinutes']),
+  );
+}
 
   String get formattedDate {
     return '${_weekdays[date.weekday]}, ${date.day} ${_months[date.month].substring(0, 3)}';
@@ -59,4 +59,35 @@ class Activity {
     'November',
     'December',
   ];
+}
+
+enum ActivityType {
+  americanFootball("American Football"),
+  basketball("Basketball"),
+  cycling("Cycling"),
+  running("Running"),
+  swimming("Swimming"),
+  yoga("Yoga");
+
+  final String displayName;
+  const ActivityType(this.displayName);
+}
+
+extension ActivityTypeInfo on ActivityType {
+  String get imageUrl {
+    switch (this) {
+      case ActivityType.americanFootball:
+        return "https://cdn-icons-png.flaticon.com/512/1162/1162506.png";
+      case ActivityType.basketball:
+        return "https://cdn-icons-png.flaticon.com/512/201/201818.png";
+      case ActivityType.cycling:
+        return "https://cdn-icons-png.flaticon.com/512/747/747310.png";
+      case ActivityType.running:
+        return "https://cdn-icons-png.flaticon.com/512/2965/2965567.png";
+      case ActivityType.swimming:
+        return "https://cdn-icons-png.flaticon.com/512/3179/3179068.png";
+      case ActivityType.yoga:
+        return "https://cdn-icons-png.flaticon.com/512/2947/2947416.png";
+    }
+  }
 }

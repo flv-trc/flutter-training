@@ -14,14 +14,14 @@ class ActivityItem extends StatelessWidget {
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Image.network(
-          activity.imageUrl,
+          activity.type.imageUrl,
           width: 48,
           height: 48,
           fit: BoxFit.cover,
           errorBuilder: (_, _, _) => const Icon(Icons.image_not_supported),
         ),
       ),
-      title: Text(activity.title),
+      title: Text(activity.type.displayName),
       subtitle: Text(
         '${activity.formattedDate}, ${activity.formattedDuration}',
       ),
