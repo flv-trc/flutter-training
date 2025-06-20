@@ -11,6 +11,9 @@ final activityViewModelProvider =
 class ActivityViewModel extends StateNotifier<List<Activity>> {
   ActivityViewModel() : super([]);
 
+  ActivityType selectedFilterType = ActivityType.none;
+  ActivityType prospectiveFilterType = ActivityType.none;
+
   void _loadActivities() async {
     final response = await DioClient.instance.get("/activities");
     final data = response.data as List<dynamic>;
@@ -18,8 +21,9 @@ class ActivityViewModel extends StateNotifier<List<Activity>> {
   }
 
   Map<String, List<Activity>> get activitiesGroupedByMonth {
+    final filtered = _filterActivities(state, selectedFilterType);
     final Map<String, List<Activity>> grouped = {};
-    final sorted = state.toList()..sort((a, b) => b.date.compareTo(a.date));
+    final sorted = filtered..sort((a, b) => b.date.compareTo(a.date));
 
     for (final activity in sorted) {
       final key = '${activity.fullMonth} ${activity.date.year}';
@@ -29,13 +33,35 @@ class ActivityViewModel extends StateNotifier<List<Activity>> {
     return grouped;
   }
 
+  List<ActivityType> get activityTypes {
+    return state.map((a) => a.type).toSet().toList();
+  }
+
   int get totalDurationInMinutes => state
       .fold(Duration.zero, (total, activity) => total + activity.duration)
       .inMinutes;
 
   int get totalCount => state.length;
 
+  bool get applyFilterEnabled => selectedFilterType != prospectiveFilterType;
+
   void add(Activity activity) {
     state = [...state, activity];
+  }
+
+  void applyFilter() {
+    selectedFilterType = prospectiveFilterType;
+    state = [...state];
+  }
+
+  List<Activity> _filterActivities(
+    List<Activity> activities,
+    ActivityType filterType,
+  ) {
+    if (filterType == ActivityType.none) {
+      return activities;
+    }
+
+    return activities.where((activity) => activity.type == filterType).toList();
   }
 }
