@@ -7,6 +7,7 @@ import 'package:flutter_training/widgets/buttons.dart';
 import '../../../../domain/model/activity.dart';
 import '../../../../widgets/number_and_subtitle.dart';
 import '../../../../widgets/tiles/activity_item.dart';
+import "../../../../routing/exports.dart";
 
 class HistoryTabContent extends ConsumerWidget {
   const HistoryTabContent({super.key});
@@ -131,6 +132,9 @@ List<Widget> _buildGroupedSlivers(Map<String, List<Activity>> grouped) {
     final title = entry.key;
     final group = entry.value;
 
+    onActivityTap(activity) =>
+        Get.toNamed(AppRouter.activityInfo, arguments: activity);
+
     return SliverList(
       delegate: SliverChildListDelegate([
         Padding(
@@ -140,7 +144,9 @@ List<Widget> _buildGroupedSlivers(Map<String, List<Activity>> grouped) {
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
           ),
         ),
-        ...group.map((a) => ActivityItem(activity: a)),
+        ...group.map(
+          (a) => ActivityItem(activity: a, onTap: () => onActivityTap(a)),
+        ),
       ]),
     );
   }).toList();

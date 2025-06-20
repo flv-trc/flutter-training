@@ -15,6 +15,10 @@ extension AppDateTime on DateTime {
     return '$dayOfWeek, $day $monthShort';
   }
 
+  String get ddmmyyyyFormat {
+    return '${day.toString().padLeft(2, '0')}.${month.toString().padLeft(2, '0')}.$year';
+  }
+
   String get appFormatTime {
     final h = hour.toString().padLeft(2, '0');
     final m = minute.toString().padLeft(2, '0');

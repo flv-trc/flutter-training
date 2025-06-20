@@ -5,12 +5,14 @@ import '../../domain/model/activity.dart';
 
 class ActivityItem extends StatelessWidget {
   final Activity activity;
+  final VoidCallback? onTap;
 
-  const ActivityItem({super.key, required this.activity});
+  const ActivityItem({super.key, required this.activity, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       leading: (activity.type.imageUrl != null)
           ? ClipRRect(
