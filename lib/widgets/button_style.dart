@@ -36,7 +36,7 @@ enum AppButtonStyle {
       ),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
       padding: WidgetStateProperty.all(
-        const EdgeInsets.symmetric(vertical: 16),
+        const EdgeInsets.all(16),
       ),
       shape: WidgetStateProperty.all(
         isRounded

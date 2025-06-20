@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_training/features/dashboard/tab_contents/activity/activity_viewmodel.dart';
 import 'package:flutter_training/widgets/app_divider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/widgets/buttons.dart';
 
 import '../../../../domain/model/activity.dart';
 import '../../../../widgets/number_and_subtitle.dart';
@@ -26,13 +27,15 @@ class HistoryTabContent extends ConsumerWidget {
       subtitle: 'Total Minutes',
     );
 
+    onFilterPressed() => _onFilterPressed(context, activitiesVM);
+
     final filterRow = Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const Text('All Activity', style: TextStyle(fontSize: 16)),
-          IconButton(icon: const Icon(Icons.tune), onPressed: () {}),
+          IconButton(icon: const Icon(Icons.tune), onPressed: onFilterPressed),
         ],
       ),
     );
@@ -58,6 +61,67 @@ class HistoryTabContent extends ConsumerWidget {
         ),
         ..._buildGroupedSlivers(activitiesVM.activitiesGroupedByMonth),
       ],
+    );
+  }
+
+  void _onFilterPressed(BuildContext context, ActivityViewModel viewModel) {
+    ActivityType prospectiveType = viewModel.prospectiveFilterType;
+
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return SafeArea(
+          child: StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "Select",
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  ...ActivityType.values
+                      .where(
+                        (type) =>
+                            type != ActivityType.none &&
+                            viewModel.activityTypes.contains(type),
+                      )
+                      .map((type) {
+                        return RadioListTile<ActivityType>(
+                          title: Text(type.displayName),
+                          value: type,
+                          groupValue: prospectiveType,
+                          onChanged: (ActivityType? newValue) {
+                            if (newValue != null) {
+                              setState(() => prospectiveType = newValue);
+                              viewModel.prospectiveFilterType = newValue;
+                            }
+                          },
+                        );
+                      }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: flatBlackButton(
+                      onPressed: () {
+                        viewModel.applyFilter();
+                        Navigator.pop(context);
+                      },
+                      label: 'Apply Filter',
+                      enabled: viewModel.applyFilterEnabled,
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
