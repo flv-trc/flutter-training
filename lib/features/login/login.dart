@@ -1,16 +1,18 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_training/core/base/base_page.dart';
-import 'package:flutter_training/features/login/login_viewmodel.dart';
 import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 import 'package:get/get.dart';
-import 'package:provider/provider.dart';
 
 import '../../resources/fonts.dart';
 import '../../resources/images.dart';
 import '../../routing/router.dart';
+import 'login_bloc.dart';
+import 'login_events.dart';
+import 'login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,60 +27,59 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    final vm = context.watch<LoginViewModel>();
-
-    return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: unfocus,
-        child: Form(key: _formKey, child: mainVStack(context, vm)),
-      ),
+    return BlocBuilder<LoginBloc, LoginState>(
+      builder: (context, state) {
+        final bloc = context.read<LoginBloc>();
+        return BlocListener<LoginBloc, LoginState>(
+          listener: (context, state) {
+            if (state.isAuthenticated) {
+              _goToDashboard();
+            }
+          },
+          child: Scaffold(
+            body: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: unfocus,
+              child: Form(key: _formKey, child: mainVStack(context, bloc, state)),
+            ),
+          ),
+        );
+      },
     );
   }
 
-  void _goToDashboard() {
-    Get.toNamed(AppRouter.dashboard);
-  }
-
-  void _onTermsTap() {
-    Get.toNamed(AppRouter.googleWebView);
-  }
-
-  void _onPrivacyTap() {
-    Get.toNamed(AppRouter.googleExternalUrl);
-  }
-
-  void _onForgotPasswordTap() {
-    showSnackBar("Forgot Password tapped");
-  }
-
-  void _onJoinTap() {
-    showSnackBar("Join Us tapped");
-  }
+  void _goToDashboard() => Get.toNamed(AppRouter.dashboard);
+  void _onTermsTap() => Get.toNamed(AppRouter.googleWebView);
+  void _onPrivacyTap() => Get.toNamed(AppRouter.googleExternalUrl);
+  void _onForgotPasswordTap() => showSnackBar("Forgot Password tapped");
+  void _onJoinTap() => showSnackBar("Join Us tapped");
 }
 
 extension _LoginScreenStateWidgets on _LoginScreenState {
-  Widget mainVStack(BuildContext context, LoginViewModel vm) {
+  Widget mainVStack(BuildContext context, LoginBloc bloc, LoginState state) {
     var emailTextField = PrimaryTextfield(
       hintText: _Constant.emailAddress,
-      controller: vm.emailController,
-      validator: vm.validateEmail,
+      onChanged: (value) => bloc.add(EmailChanged(value)),
+      validator: (value) => LoginState.validateEmail(value),
     );
 
     var passwordTextField = PrimaryTextfield(
       hintText: _Constant.password,
-      controller: vm.passwordController,
+      onChanged: (value) {
+        print("Changed: $value");
+        bloc.add(PasswordChanged(value));
+      },
       obscureText: true,
-      validator: vm.validatePassword,
+      validator: (value) => LoginState.validatePassword(value, state.passwordScore),
     );
 
     var image = Image.asset(Images.nike);
 
     var passwordStrengthMeter = PasswordStrengthMeter(
-      score: vm.passwordScore,
-      visible: vm.passwordMeterVisible,
+      score: state.passwordScore,
+      visible: state.passwordMeterVisible,
     );
-    
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -99,13 +100,12 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
             ),
             flatBlackButton(
               label: _Constant.signIn,
-              enabled: vm.isSignInButtonEnabled,
+              enabled: bloc.state.isButtonEnabled,
               onPressed: () {
                 if (_formKey.currentState?.validate() == true) {
-                  vm.login();
-                  _goToDashboard();
+                  bloc.add(LoginSubmitted());
                 } else {
-                  vm.markValidationFailed();
+                  bloc.add(LoginValidationFailed());
                 }
               },
             ),

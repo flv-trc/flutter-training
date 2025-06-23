@@ -33,9 +33,8 @@ class ActivityViewModel extends StateNotifier<List<Activity>> {
     return grouped;
   }
 
-  List<ActivityType> get activityTypes {
-    return state.map((a) => a.type).toSet().toList();
-  }
+  List<ActivityType> get activityTypes =>
+      state.map((a) => a.type).toSet().toList();
 
   int get totalDurationInMinutes => state
       .fold(Duration.zero, (total, activity) => total + activity.duration)
