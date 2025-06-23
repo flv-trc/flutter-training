@@ -40,7 +40,16 @@ class _LoginScreenState extends State<LoginScreen>
             body: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: unfocus,
-              child: Form(key: _formKey, child: mainVStack(context, bloc, state)),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  return SingleChildScrollView(
+                    child: Form(
+                      key: _formKey,
+                      child: mainVStack(context, bloc, state),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );
@@ -65,12 +74,10 @@ extension _LoginScreenStateWidgets on _LoginScreenState {
 
     var passwordTextField = PrimaryTextfield(
       hintText: _Constant.password,
-      onChanged: (value) {
-        print("Changed: $value");
-        bloc.add(PasswordChanged(value));
-      },
+      onChanged: (value) => bloc.add(PasswordChanged(value)),
       obscureText: true,
-      validator: (value) => LoginState.validatePassword(value, state.passwordScore),
+      validator: (value) =>
+          LoginState.validatePassword(value, state.passwordScore),
     );
 
     var image = Image.asset(Images.nike);

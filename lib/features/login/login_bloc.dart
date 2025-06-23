@@ -70,8 +70,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     LoginValidationFailed event,
     Emitter<LoginState> emit,
   ) {
-    final (_, emailError, passwordError) = _validateAll();
+    final (isValid, emailError, passwordError) = _validateAll();
 
-    emit(state.copyWith(emailError: emailError, passwordError: passwordError));
+    emit(state.copyWith(emailError: emailError, passwordError: passwordError, validationFailed: !isValid));
   }
 }
