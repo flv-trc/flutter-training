@@ -25,6 +25,10 @@ extension AppDateTime on DateTime {
     return '$h:$m';
   }
 
+  String get monthYear {
+    return '${months[month -1]} $year';
+  }
+
   static const months = [
     '',
     'January',
