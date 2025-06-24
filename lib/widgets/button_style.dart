@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-RoundedRectangleBorder roundedRectangleShape({required Color? color}) =>
+RoundedRectangleBorder rectangleShape({required Color? color, double borderRadius = 30}) =>
     RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(30),
+      borderRadius: BorderRadius.circular(borderRadius),
       side: color != null
           ? BorderSide(color: color, width: 1)
           : BorderSide.none,
@@ -13,7 +13,8 @@ enum AppButtonStyle {
   secondary,
   inversePrimary,
   inverseSecondary,
-  flatBlack;
+  flatBlack,
+  flatTransparent;
 
   ButtonStyle buildStyle({
     required Color background,
@@ -27,6 +28,8 @@ enum AppButtonStyle {
           : baseColor;
     }
 
+    final double borderRadius = isRounded ? 30 : 0;
+
     return ButtonStyle(
       backgroundColor: WidgetStateProperty.resolveWith(
         (states) => resolveColor(states, background),
@@ -35,13 +38,9 @@ enum AppButtonStyle {
         (states) => resolveColor(states, foreground),
       ),
       shadowColor: WidgetStateProperty.all(Colors.transparent),
-      padding: WidgetStateProperty.all(
-        const EdgeInsets.all(16),
-      ),
+      padding: WidgetStateProperty.all(const EdgeInsets.all(16)),
       shape: WidgetStateProperty.all(
-        isRounded
-            ? roundedRectangleShape(color: borderColor)
-            : const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+        rectangleShape(color: borderColor, borderRadius: borderRadius)
       ),
     );
   }
@@ -68,6 +67,13 @@ enum AppButtonStyle {
         return buildStyle(
           background: Colors.black,
           foreground: Colors.white,
+          isRounded: false,
+        );
+      case AppButtonStyle.flatTransparent:
+        return buildStyle(
+          background: Colors.transparent,
+          foreground: Colors.black,
+          borderColor: Colors.grey,
           isRounded: false,
         );
     }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/app_bottom_navigation_bar.dart';
+import '../../routing/exports.dart';
 
 abstract class DashboardBaseTabScreen extends StatelessWidget {
   const DashboardBaseTabScreen({super.key});
@@ -19,10 +20,13 @@ abstract class DashboardBaseTabScreen extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             CupertinoSliverNavigationBar(
-              leading: const Icon(
-                Icons.account_circle,
-                color: Colors.grey,
-                size: 40,
+              leading: InkWell(
+                onTap: () => Get.toNamed(AppRouter.profile),
+                child: const Icon(
+                  Icons.account_circle,
+                  color: Colors.grey,
+                  size: 40,
+                ),
               ),
               largeTitle: Text(barItem.label),
               trailing: trailingItem,

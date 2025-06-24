@@ -62,6 +62,19 @@ ElevatedButton flatBlackButton({
   );
 }
 
+ElevatedButton flatTransparentButton({
+  required String label,
+  required VoidCallback onPressed,
+  bool enabled = true,
+}) {
+  var childLabel = Text(label, style: TextStyle(fontFamily: "Oswald"));
+  return ElevatedButton(
+    style: AppButtonStyle.flatTransparent.style,
+    onPressed: enabled ? onPressed : null,
+    child: childLabel,
+  );
+}
+
 IconButton closeButton({required VoidCallback onPressed}) {
   return IconButton(
     icon: const Icon(Icons.close),
