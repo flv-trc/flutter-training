@@ -18,4 +18,8 @@ class ProfileNotifier extends StateNotifier<Profile> {
           hometown: '',
         ),
       );
+
+  void setProfile(Profile newProfile) {
+    state = newProfile;
+  }
 }

@@ -67,7 +67,7 @@ class SecondaryTextField extends StatelessWidget {
     required this.onChanged,
     this.maxLines = 1,
     this.hint,
-    this.maxLength,
+    this.maxLength = 255,
   });
 
   @override

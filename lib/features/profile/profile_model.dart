@@ -55,7 +55,8 @@ class Profile {
           firstName == other.firstName &&
           lastName == other.lastName &&
           hometown == other.hometown &&
-          bio == other.bio;
+          bio == other.bio &&
+          imagePath == other.imagePath;
 
   @override
   int get hashCode => Object.hash(firstName, lastName, hometown, bio);

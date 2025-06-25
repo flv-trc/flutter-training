@@ -1,4 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
+import 'dart:io';
 
 import '../profile_model.dart';
 import '../profile_notifier.dart';
@@ -6,33 +10,17 @@ import 'profile_edit_model.dart';
 
 final profileEditProvider =
     StateNotifierProvider<ProfileEditStateNotifier, ProfileEditState>((ref) {
-      final profile = ref.watch(profileProvider);
-      return ProfileEditStateNotifier(profile);
+      final initialProfile = ref.watch(profileProvider);
+      return ProfileEditStateNotifier(ref: ref, initialProfile: initialProfile);
     });
 
 class ProfileEditStateNotifier extends StateNotifier<ProfileEditState> {
-  ProfileEditStateNotifier(Profile profile)
-    : super(
-        ProfileEditState(
-          original: Profile(
-            firstName: 'Test',
-            lastName: 'User',
-            imagePath: '',
-            memberSince: DateTime(2020, 3),
-            bio: '',
-            hometown: '',
-            friends: [],
-          ),
-          current: Profile(
-            firstName: 'Test',
-            lastName: 'User',
-            imagePath: '',
-            memberSince: DateTime(2020, 3),
-            bio: '',
-            hometown: '',
-            friends: [],
-          ),
-        ),
+  final Ref _ref;
+
+  ProfileEditStateNotifier({required Ref ref, required Profile initialProfile})
+    : _ref = ref,
+      super(
+        ProfileEditState(original: initialProfile, current: initialProfile),
       );
 
   void updateFirstName(String value) {
@@ -51,11 +39,32 @@ class ProfileEditStateNotifier extends StateNotifier<ProfileEditState> {
     state = state.copyWith(current: state.current.copyWith(bio: value));
   }
 
+  Future<void> updateImage(XFile newImage) async {
+    final dir = await getApplicationDocumentsDirectory();
+
+    final oldImagePath = state.current.imagePath;
+    if (oldImagePath.isNotEmpty && File(oldImagePath).existsSync()) {
+      await File(oldImagePath).delete();
+    }
+
+    final newPath = p.join(
+      dir.path,
+      'profile_image${p.extension(newImage.path)}',
+    );
+    final savedImage = await File(newImage.path).copy(newPath);
+
+    state = state.copyWith(
+      current: state.current.copyWith(imagePath: savedImage.path),
+    );
+  }
+
   void reset() {
     state = ProfileEditState(original: state.original, current: state.original);
   }
 
   void commit() {
-    state = ProfileEditState(original: state.current, current: state.current);
+    final updated = state.current;
+    state = ProfileEditState(original: updated, current: updated);
+    _ref.read(profileProvider.notifier).setProfile(updated);
   }
 }

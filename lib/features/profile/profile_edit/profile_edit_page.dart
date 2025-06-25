@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/features/profile/profile_edit/profile_edit_model.dart';
 import 'package:flutter_training/features/profile/profile_edit/profile_edit_notifier.dart';
 import 'package:flutter_training/widgets/textfields.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileEditPage extends ConsumerWidget {
   const ProfileEditPage({super.key});
@@ -14,13 +17,14 @@ class ProfileEditPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: _appBar(context, profile, profileNotifier),
-      body: _body(profile, profileNotifier),
+      body: _body(context, profile, profileNotifier),
     );
   }
 }
 
 extension ProfileEditPageWidgets on ProfileEditPage {
   SingleChildScrollView _body(
+    BuildContext context,
     ProfileEditState profile,
     ProfileEditStateNotifier profileNotifier,
   ) {
@@ -30,16 +34,12 @@ extension ProfileEditPageWidgets on ProfileEditPage {
         children: [
           const SizedBox(height: 10),
           GestureDetector(
-            onTap: () {},
+            onTap: () => _showImagePickerOptions(context, profileNotifier),
             child: Column(
-              children: const [
-                CircleAvatar(
-                  radius: 40,
-                  backgroundColor: Colors.grey,
-                  child: Icon(Icons.camera_alt, color: Colors.white, size: 30),
-                ),
+              children: [
+                profileAvatar(profile.current.imagePath),
                 SizedBox(height: 8),
-                Text('Edit', style: TextStyle(color: Colors.grey)),
+                Text('Edit', style: TextStyle(color: Colors.black)),
               ],
             ),
           ),
@@ -76,13 +76,23 @@ extension ProfileEditPageWidgets on ProfileEditPage {
     );
   }
 
+  CircleAvatar profileAvatar(String imagePath) {
+    return imagePath.isEmpty
+        ? const CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.grey,
+            child: Icon(Icons.person, size: 40, color: Colors.white),
+          )
+        : CircleAvatar(radius: 40, backgroundImage: FileImage(File(imagePath)));
+  }
+
   PreferredSize _appBar(
     BuildContext context,
     ProfileEditState profile,
     ProfileEditStateNotifier profileNotifier,
   ) {
     final saveButton = TextButton(
-      onPressed: profile.hasChanged
+      onPressed: profile.saveEnabled
           ? () {
               profileNotifier.commit();
               Navigator.of(context).pop();
@@ -91,13 +101,13 @@ extension ProfileEditPageWidgets on ProfileEditPage {
       child: Text(
         'Save',
         style: TextStyle(
-          color: profile.hasChanged ? Colors.blue : Colors.grey,
+          color: profile.saveEnabled ? Colors.blue : Colors.grey,
           fontSize: 17,
           fontWeight: FontWeight.w600,
         ),
       ),
     );
-    
+
     final cancelButton = TextButton(
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -117,6 +127,54 @@ extension ProfileEditPageWidgets on ProfileEditPage {
         alignment: Alignment.bottomCenter,
         child: Row(children: [cancelButton, const Spacer(), saveButton]),
       ),
+    );
+  }
+
+  Future<void> _showImagePickerOptions(
+    BuildContext context,
+    ProfileEditStateNotifier profileEditNotifier,
+  ) async {
+    final picker = ImagePicker();
+
+    await showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Choose from Gallery'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final image = await picker.pickImage(
+                    source: ImageSource.gallery,
+                    imageQuality: 85,
+                  );
+                  if (image != null) {
+                    profileEditNotifier.updateImage(image);
+                  }
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Take a Photo'),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final image = await picker.pickImage(
+                    source: ImageSource.camera,
+                    imageQuality: 85,
+                  );
+                  if (image != null) {
+                    profileEditNotifier.updateImage(image);
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -6,7 +6,9 @@ class ProfileEditState {
 
   ProfileEditState({required this.original, required this.current});
 
-  bool get hasChanged => original != current;
+  bool get _hasChanged => original != current;
+  bool get _validateData => current.firstName.isNotEmpty && current.lastName.isNotEmpty;
+  bool get saveEnabled => _hasChanged && _validateData;
 
   ProfileEditState copyWith({Profile? original, Profile? current}) {
     return ProfileEditState(
