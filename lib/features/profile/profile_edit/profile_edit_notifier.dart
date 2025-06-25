@@ -39,13 +39,8 @@ class ProfileEditStateNotifier extends StateNotifier<ProfileEditState> {
     state = state.copyWith(current: state.current.copyWith(bio: value));
   }
 
-  Future<void> updateImage(XFile newImage) async {
+  Future<void> updateImage(XFile newImage, bool saveToGallery) async {
     final dir = await getApplicationDocumentsDirectory();
-
-    final oldImagePath = state.current.imagePath;
-    if (oldImagePath.isNotEmpty && File(oldImagePath).existsSync()) {
-      await File(oldImagePath).delete();
-    }
 
     final newPath = p.join(
       dir.path,

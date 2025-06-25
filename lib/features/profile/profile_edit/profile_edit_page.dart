@@ -112,7 +112,10 @@ extension ProfileEditPageWidgets on ProfileEditPage {
       style: TextButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 16),
       ),
-      onPressed: () => Navigator.of(context).pop(),
+      onPressed: () {
+        profileNotifier.reset();
+        Navigator.of(context).pop();
+      },
       child: const Text(
         'Cancel',
         style: TextStyle(color: Colors.blue, fontSize: 17),
@@ -153,7 +156,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
                     imageQuality: 85,
                   );
                   if (image != null) {
-                    profileEditNotifier.updateImage(image);
+                    profileEditNotifier.updateImage(image, false);
                   }
                 },
               ),
@@ -167,7 +170,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
                     imageQuality: 85,
                   );
                   if (image != null) {
-                    profileEditNotifier.updateImage(image);
+                    profileEditNotifier.updateImage(image, true);
                   }
                 },
               ),
