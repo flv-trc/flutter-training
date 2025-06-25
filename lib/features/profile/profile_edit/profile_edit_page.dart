@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_training/features/profile/profile_edit/profile_edit_model.dart';
-import 'package:flutter_training/features/profile/profile_edit/profile_edit_notifier.dart';
-import 'package:flutter_training/widgets/textfields.dart';
+import 'profile_edit_model.dart';
+import 'profile_edit_notifier.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../../widgets/textfields.dart';
 
 class ProfileEditPage extends ConsumerWidget {
   const ProfileEditPage({super.key});
@@ -37,7 +37,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
             onTap: () => _showImagePickerOptions(context, profileNotifier),
             child: Column(
               children: [
-                profileAvatar(profile.current.imagePath),
+                _profileAvatar(profile.current.imagePath),
                 SizedBox(height: 8),
                 Text('Edit', style: TextStyle(color: Colors.black)),
               ],
@@ -76,7 +76,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
     );
   }
 
-  CircleAvatar profileAvatar(String imagePath) {
+  CircleAvatar _profileAvatar(String imagePath) {
     return imagePath.isEmpty
         ? const CircleAvatar(
             radius: 40,
