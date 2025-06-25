@@ -6,6 +6,7 @@ import 'package:flutter_training/features/profile/profile_model.dart';
 import 'package:flutter_training/features/profile/profile_notifier.dart';
 import 'package:flutter_training/widgets/app_divider.dart';
 import 'package:flutter_training/widgets/buttons.dart';
+import '../../routing/exports.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -19,7 +20,9 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  void _onEditProfile() {}
+  void _onEditProfile() {
+    Get.toNamed(AppRouter.editProfile);
+  }
   void _onAddFriends() {}
 }
 
@@ -39,7 +42,7 @@ extension ProfilePageWidgets on ProfilePage {
                 children: [
                   topBar(context),
                   profileAvatar(profile.imagePath),
-                  username(profile.username),
+                  username(profile.fullName),
                   editProfileButton,
                   tabs,
                   AppDivider(indent: 16, endIndent: 16),

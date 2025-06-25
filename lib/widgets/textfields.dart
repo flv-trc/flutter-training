@@ -51,3 +51,53 @@ class PrimaryTextfield extends StatelessWidget {
     );
   }
 }
+
+class SecondaryTextField extends StatelessWidget {
+  final String label;
+  final String initialValue;
+  final Function(String) onChanged;
+  final String? hint;
+  final int maxLines;
+  final int? maxLength;
+
+  const SecondaryTextField({
+    super.key,
+    required this.label,
+    required this.initialValue,
+    required this.onChanged,
+    this.maxLines = 1,
+    this.hint,
+    this.maxLength = 255,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label.isNotEmpty)
+          Text(label, style: const TextStyle(fontSize: 13, color: Colors.grey)),
+        const SizedBox(height: 4),
+        TextField(
+          controller: TextEditingController.fromValue(
+            TextEditingValue(
+              text: initialValue,
+              selection: TextSelection.collapsed(offset: initialValue.length),
+            ),
+          ),
+          onChanged: onChanged,
+          maxLines: maxLines,
+          maxLength: maxLength,
+          decoration: InputDecoration(
+            hintText: hint,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(6),
+              borderSide: const BorderSide(color: Colors.grey),
+            ),
+            counterText: '',
+          ),
+        ),
+      ],
+    );
+  }
+}

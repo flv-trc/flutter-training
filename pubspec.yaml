@@ -28,6 +28,9 @@ dependencies:
   flutter_slidable: ^4.0.0
   share_plus: ^11.0.0
   flutter_bloc: ^9.1.1
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:

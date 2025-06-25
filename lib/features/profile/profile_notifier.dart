@@ -9,18 +9,17 @@ class ProfileNotifier extends StateNotifier<Profile> {
   ProfileNotifier()
     : super(
         Profile(
-          username: 'Test User',
+          firstName: 'Test',
+          lastName: 'User',
           imagePath: '',
           memberSince: DateTime(2020, 3),
           friends: [],
+          bio: '',
+          hometown: '',
         ),
       );
 
-  void updateImagePath(String path) {
-    state = state.copyWith(imagePath: path);
-  }
-
-  void updateUsername(String username) {
-    state = state.copyWith(username: username);
+  void setProfile(Profile newProfile) {
+    state = newProfile;
   }
 }
