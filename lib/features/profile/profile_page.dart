@@ -23,7 +23,13 @@ class ProfilePage extends ConsumerWidget {
   void _onEditProfile() {
     Get.toNamed(AppRouter.editProfile);
   }
+
   void _onAddFriends() {}
+
+  void _onTapPass() {
+    print('called');
+    Get.toNamed(AppRouter.passProfile);
+  }
 }
 
 extension ProfilePageWidgets on ProfilePage {
@@ -112,9 +118,12 @@ extension ProfilePageWidgets on ProfilePage {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
-            spacing: 4,
-            children: const [Icon(Icons.badge_outlined), Text('Pass')],
+          InkWell(
+            onTap: _onTapPass,
+            child: Column(
+              spacing: 4,
+              children: const [Icon(Icons.badge_outlined), Text('Pass')],
+            ),
           ),
 
           Container(height: 40, width: 1, color: Colors.black12),

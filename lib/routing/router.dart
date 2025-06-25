@@ -3,6 +3,7 @@ import 'package:flutter_training/features/dashboard/tab_contents/activity/activi
 import 'package:flutter_training/features/dashboard/tab_contents/activity/add_activity/add_activity_page.dart';
 import 'package:flutter_training/features/profile/profile_edit/profile_edit_page.dart';
 import 'package:flutter_training/features/profile/profile_page.dart';
+import 'package:flutter_training/features/profile/profile_pass/profile_pass_page.dart';
 import 'package:flutter_training/features/workout/workout_model.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -28,6 +29,7 @@ class AppRouter {
   static const String activityInfo = '/activity_info';
   static const String profile = '/profile';
   static const String editProfile = '/profile_edit';
+  static const String passProfile = '/profile_pass';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -94,6 +96,11 @@ class AppRouter {
     GetPage(
       name: editProfile,
       page: () => ProfileEditPage(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: passProfile,
+      page: () => ProfilePassPage(),
       transition: Transition.cupertino,
     ),
   ];
