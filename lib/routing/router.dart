@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/dashboard/tab_contents/activity/activity_info_dart.dart';
 import 'package:flutter_training/features/dashboard/tab_contents/activity/add_activity/add_activity_page.dart';
+import 'package:flutter_training/features/profile/profile_edit/profile_edit_page.dart';
 import 'package:flutter_training/features/profile/profile_page.dart';
 import 'package:flutter_training/features/workout/workout_model.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,7 @@ class AppRouter {
   static const String addActivity = '/add_activity';
   static const String activityInfo = '/activity_info';
   static const String profile = '/profile';
+  static const String editProfile = '/profile_edit';
 
   static final List<GetPage> getPages = [
     GetPage(
@@ -87,6 +89,11 @@ class AppRouter {
     GetPage(
       name: profile,
       page: () => ProfilePage(),
+      transition: Transition.cupertino,
+    ),
+    GetPage(
+      name: editProfile,
+      page: () => ProfileEditPage(),
       transition: Transition.cupertino,
     ),
   ];
