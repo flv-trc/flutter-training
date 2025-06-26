@@ -4,8 +4,28 @@ import 'package:flutter_training/routing/router.dart';
 import 'package:flutter_training/widgets/buttons.dart';
 import 'package:get/get.dart';
 
-class RootScreen extends StatelessWidget {
-  const RootScreen({super.key});
+class RootScreen extends StatefulWidget {
+  final bool showLoginOnStart;
+
+  const RootScreen({super.key, this.showLoginOnStart = false});
+
+  @override
+  State<RootScreen> createState() => _RootScreenState();
+}
+
+class _RootScreenState extends State<RootScreen> {
+  bool _loginPresented = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (widget.showLoginOnStart && !_loginPresented) {
+      _loginPresented = true;
+
+      Future.microtask(() => Get.toNamed(AppRouter.login));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +43,7 @@ class RootScreen extends StatelessWidget {
 }
 
 // Mark - Widget helpers for the Root Screen
-extension RootScreenWidgets on RootScreen {
+extension _RootScreenWidgets on _RootScreenState {
   Widget mainColumn(BuildContext context) {
     var image = Image.asset(
       Images.ntcLogo,

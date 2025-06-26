@@ -20,16 +20,13 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  void _onEditProfile() {
-    Get.toNamed(AppRouter.editProfile);
-  }
+  void _onEditProfile() => Get.toNamed(AppRouter.editProfile);
 
   void _onAddFriends() {}
 
-  void _onTapPass() {
-    print('called');
-    Get.toNamed(AppRouter.passProfile);
-  }
+  void _onTapPass() => Get.toNamed(AppRouter.passProfile);
+
+  void _onTapSettings() => Get.toNamed(AppRouter.settingsProfile);
 }
 
 extension ProfilePageWidgets on ProfilePage {
@@ -128,9 +125,12 @@ extension ProfilePageWidgets on ProfilePage {
 
           Container(height: 40, width: 1, color: Colors.black12),
 
-          Column(
-            spacing: 4,
-            children: const [Icon(Icons.settings_outlined), Text('Settings')],
+          InkWell(
+            onTap: _onTapSettings,
+            child: Column(
+              spacing: 4,
+              children: const [Icon(Icons.settings_outlined), Text('Settings')],
+            ),
           ),
         ],
       ),
