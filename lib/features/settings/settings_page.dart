@@ -4,14 +4,14 @@ import 'package:flutter_training/core/firebase/authentication_service.dart';
 import 'package:flutter_training/screens/root.dart';
 
 
-class ProfileSettingsPage extends ConsumerStatefulWidget {
-  const ProfileSettingsPage({super.key});
+class SettingsPage extends ConsumerStatefulWidget {
+  const SettingsPage({super.key});
 
   @override
-  ConsumerState<ProfileSettingsPage> createState() => _ProfileSettingsPageState();
+  ConsumerState<SettingsPage> createState() => _SettingsPageState();
 }
 
-class _ProfileSettingsPageState extends ConsumerState<ProfileSettingsPage> {
+class _SettingsPageState extends ConsumerState<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final items = [
@@ -76,7 +76,7 @@ class _ProfileSettingsPageState extends ConsumerState<ProfileSettingsPage> {
   }
 }
 
-extension _ProfileSettingsPageWidgets on _ProfileSettingsPageState {
+extension _SettingsPageWidgets on _SettingsPageState {
   Container _logOutContainer(BuildContext context) {
     return Container(
       color: Colors.white,

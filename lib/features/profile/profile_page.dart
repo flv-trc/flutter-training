@@ -22,11 +22,11 @@ class ProfilePage extends ConsumerWidget {
 
   void _onEditProfile() => Get.toNamed(AppRouter.editProfile);
 
-  void _onAddFriends() {}
+  void _onAddFriends() => Get.toNamed(AppRouter.findFriends);
 
   void _onTapPass() => Get.toNamed(AppRouter.passProfile);
 
-  void _onTapSettings() => Get.toNamed(AppRouter.settingsProfile);
+  void _onTapSettings() => Get.toNamed(AppRouter.settings);
 }
 
 extension ProfilePageWidgets on ProfilePage {

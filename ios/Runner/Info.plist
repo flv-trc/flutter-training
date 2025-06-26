@@ -54,5 +54,8 @@
 
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need permission to save photos to your library.</string>
+
+	<key>NSContactsUsageDescription</key>
+	<string>This allows you to find and invite friends from your Contacts.</string>
 </dict>
 </plist>
