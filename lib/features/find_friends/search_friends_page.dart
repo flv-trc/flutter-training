@@ -2,6 +2,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'search_friends_notifier.dart';
+import 'package:flutter_training/routing/exports.dart';
 
 class SearchFriendsPage extends ConsumerStatefulWidget {
   const SearchFriendsPage({super.key});
@@ -120,7 +121,10 @@ extension _SearchFriendsPageStateWidgets on _SearchFriendsPageState {
         }
         return ListView.builder(
           itemCount: results.length,
-          itemBuilder: (_, index) => ListTile(title: Text(results[index].displayName ?? '')),
+          itemBuilder: (context, index) => ListTile(
+            title: Text(results[index].displayName ?? ''),
+            onTap: () => Get.toNamed(AppRouter.contactDetails, arguments: results[index]),
+          ),
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/features/find_friends/contacts_notifier.dart';
+import '../../routing/exports.dart';
 
 class ContactsTab extends ConsumerWidget {
   const ContactsTab({super.key});
@@ -24,7 +25,9 @@ class ContactsTab extends ConsumerWidget {
             final displayName = contact.displayName ?? 'Unnamed';
 
             return ListTile(
-              title: Text(displayName)
+              title: Text(displayName),
+              onTap: () =>
+                  Get.toNamed(AppRouter.contactDetails, arguments: contact),
             );
           },
         );

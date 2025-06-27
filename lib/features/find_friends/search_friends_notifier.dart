@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/extensions/app_contact';
 import 'contacts_notifier.dart';
 
 final searchFriendsProvider = StateNotifierProvider<SearchFriendsNotifier, AsyncValue<List<Contact>>>(
@@ -31,7 +32,9 @@ class SearchFriendsNotifier extends StateNotifier<AsyncValue<List<Contact>>> {
 
       final contacts = contactsAsync.value;
 
-      final results = contacts.where((contact) {
+      final filteredResults = contacts.where((c) => !c.isBlocked).toList();
+
+      final results = filteredResults.where((contact) {
         final name = contact.displayName ?? '';
         final email = contact.emails?.isNotEmpty == true ? contact.emails!.first.value ?? '' : '';
         return name.toLowerCase().contains(query.toLowerCase()) ||
