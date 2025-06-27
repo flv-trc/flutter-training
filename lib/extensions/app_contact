@@ -1,0 +1,13 @@
+import 'package:contacts_service/contacts_service.dart';
+
+final _blockedContactIdentifiers = <String>{};
+
+extension AppContact on Contact {
+  String get identifier => (displayName ?? '').toLowerCase().trim();
+
+  bool get isBlocked => _blockedContactIdentifiers.contains(identifier);
+
+  void block() => _blockedContactIdentifiers.add(identifier);
+
+  void unblock() => _blockedContactIdentifiers.remove(identifier);
+}
