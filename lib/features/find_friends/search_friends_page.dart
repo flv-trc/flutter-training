@@ -123,7 +123,10 @@ extension _SearchFriendsPageStateWidgets on _SearchFriendsPageState {
           itemCount: results.length,
           itemBuilder: (context, index) => ListTile(
             title: Text(results[index].displayName ?? ''),
-            onTap: () => Get.toNamed(AppRouter.contactDetails, arguments: results[index]),
+            onTap: () {
+              _clearSearch();
+              Get.toNamed(AppRouter.contactDetails, arguments: results[index]);
+            },
           ),
         );
       },
