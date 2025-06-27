@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/features/find_friends/find_friends_top_tab.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_training/routing/exports.dart';
 
 class FindFriendsPage extends StatefulWidget {
   const FindFriendsPage({super.key});
@@ -51,6 +52,8 @@ class _FindFriendsPageState extends State<FindFriendsPage>
     }
   }
 
+  void _onSearchTap() => Get.toNamed(AppRouter.searchFriends);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +75,11 @@ class _FindFriendsPageState extends State<FindFriendsPage>
       ),
       centerTitle: true,
       leading: const BackButton(),
-      actions: const [
-        Padding(padding: EdgeInsets.only(right: 12), child: Icon(Icons.search)),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: InkWell(onTap: _onSearchTap, child: const Icon(Icons.search)),
+        ),
       ],
       bottom: TabBar(
         controller: _tabController,
