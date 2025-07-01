@@ -23,6 +23,30 @@ class WorkoutModel {
     this.type = 'Undefined',
   });
 
+  WorkoutModel copyWith({
+    String? id,
+    String? name,
+    int? duration,
+    List<Exercise>? exercises,
+    bool? isFavorite,
+    String? difficultyLevel,
+    String? imageUrl,
+    String? requiredEquipment,
+    String? type,
+  }) {
+    return WorkoutModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      duration: duration ?? this.duration,
+      exercises: exercises ?? this.exercises,
+      isFavorite: isFavorite ?? this.isFavorite,
+      difficultyLevel: difficultyLevel ?? this.difficultyLevel,
+      imageUrl: imageUrl ?? this.imageUrl,
+      requiredEquipment: requiredEquipment ?? this.requiredEquipment,
+      type: type ?? this.type,
+    );
+  }
+
   @override
   String toString() {
     return 'WorkoutModel{id: $id, name: $name, duration: $duration, exercises: $exercises, isFavorite: $isFavorite, difficultyLevel: $difficultyLevel, imageUrl: $imageUrl, requiredEquipment: $requiredEquipment, type: $type}';
