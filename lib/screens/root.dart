@@ -18,19 +18,14 @@ class _RootScreenState extends State<RootScreen> {
   bool _loginPresented = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
+  Widget build(BuildContext context) {
     if (widget.showLoginOnStart && !_loginPresented) {
       _loginPresented = true;
 
       final router = AutoRouter.of(context);
       Future.microtask(() => router.push(LoginRoute()));
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    
     var image = Image.asset(Images.rootBackground, fit: BoxFit.cover);
 
     return Scaffold(
@@ -44,7 +39,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 }
 
-// Mark - Widget helpers for the Root Screen
 extension _RootScreenWidgets on _RootScreenState {
   Widget mainColumn(BuildContext context) {
     var image = Image.asset(

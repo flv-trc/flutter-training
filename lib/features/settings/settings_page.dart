@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/core/firebase/authentication_service.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/screens/root.dart';
 
 @RoutePage()
@@ -67,13 +68,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
     await ref.read(authServiceProvider).logout();
 
     if (!mounted) return;
-
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (_) => const RootScreen(showLoginOnStart: true),
-      ),
-      (route) => false,
-    );
+    context.router.replaceAll([RootRoute(showLoginOnStart: true)]);
   }
 }
 
