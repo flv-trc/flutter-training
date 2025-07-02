@@ -1,5 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/routing/exports.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 
 import '../../../../core/base/dashboard_base_tab_page.dart';
 import '../../../../widgets/app_bottom_navigation_bar.dart';
@@ -12,8 +13,10 @@ class DashboardActivityScreen extends DashboardBaseTabScreen {
   AppNavigationBarItem get barItem => AppNavigationBarItem.activity;
 
   @override
-  Widget get trailingItem =>
-      IconButton(onPressed: _onAddActivityPressed, icon: Icon(Icons.add));
+  Widget? trailingItem(BuildContext context) => IconButton(
+    onPressed: () => context.pushRoute(AddActivityRoute()),
+    icon: Icon(Icons.add),
+  );
 
   @override
   Widget buildBody(BuildContext context) {
@@ -22,9 +25,5 @@ class DashboardActivityScreen extends DashboardBaseTabScreen {
       buildTabWidgets: (tabs) => tabs.map((tab) => tab.widget).toList(),
       buildTabContents: (tabs) => tabs.map((tab) => tab.tabBarContent).toList(),
     );
-  }
-
-  void _onAddActivityPressed() {
-    Get.toNamed(AppRouter.addActivity);
   }
 }

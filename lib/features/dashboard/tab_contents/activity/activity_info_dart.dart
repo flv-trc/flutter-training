@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/extensions/app_date_time.dart';
 import 'package:flutter_training/extensions/app_duration.dart';
@@ -6,6 +7,7 @@ import 'package:share_plus/share_plus.dart';
 
 import '../../../../domain/model/activity.dart';
 
+@RoutePage()
 class ActivityInfoScreen extends StatelessWidget {
   final Activity activity;
 

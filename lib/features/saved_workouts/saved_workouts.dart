@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/app_divider.dart';
 import '../workout/workout_model.dart';
 import 'workout_list_tile.dart';
 
+@RoutePage()
 class SavedWorkoutsScreen extends StatelessWidget {
   final List<WorkoutModel> savedWorkouts;
   const SavedWorkoutsScreen({super.key, required this.savedWorkouts});

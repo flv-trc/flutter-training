@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/features/find_friends/contacts_notifier.dart';
-import '../../routing/exports.dart';
 
 class ContactsTab extends ConsumerWidget {
   const ContactsTab({super.key});
@@ -27,7 +28,7 @@ class ContactsTab extends ConsumerWidget {
             return ListTile(
               title: Text(displayName),
               onTap: () =>
-                  Get.toNamed(AppRouter.contactDetails, arguments: contact),
+                  context.pushRoute(ContactDetailsRoute(contact: contact)),
             );
           },
         );

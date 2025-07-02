@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'profile_edit_model.dart';
@@ -7,6 +8,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../widgets/textfields.dart';
 
+@RoutePage()
 class ProfileEditPage extends ConsumerWidget {
   const ProfileEditPage({super.key});
 

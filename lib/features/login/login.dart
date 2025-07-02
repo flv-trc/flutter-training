@@ -1,15 +1,16 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_training/core/base/base_page.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/widgets/password_strength_meter.dart';
 import 'package:flutter_training/widgets/textfields.dart';
 import 'package:flutter_training/widgets/buttons.dart';
-import 'package:get/get.dart';
 
+import '../../core/router/urls.dart';
 import '../../resources/fonts.dart';
 import '../../resources/images.dart';
-import '../../routing/router.dart';
 import 'login_bloc.dart';
 import 'login_events.dart';
 import 'login_state.dart';
@@ -57,9 +58,10 @@ class _LoginScreenState extends State<LoginScreen>
     );
   }
 
-  void _goToDashboard() => Get.toNamed(AppRouter.dashboard);
-  void _onTermsTap() => Get.toNamed(AppRouter.googleWebView);
-  void _onPrivacyTap() => Get.toNamed(AppRouter.googleExternalUrl);
+  void _goToDashboard() => context.pushRoute(DashboardRoute());
+  void _onTermsTap() =>
+      context.pushRoute(WebViewRoute(url: Urls.google, title: 'Google'));
+  void _onPrivacyTap() => context.pushRoute(ExternalUrlRoute(url: Urls.google));
   void _onForgotPasswordTap() => showSnackBar("Forgot Password tapped");
   void _onJoinTap() => showSnackBar("Join Us tapped");
 }

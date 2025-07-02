@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/widgets/buttons.dart';
@@ -8,6 +9,7 @@ import '../../../../../widgets/app_divider.dart';
 import '../../../../../widgets/platform_date_time_picker.dart';
 import 'add_avitivity_viewmodel.dart';
 
+@RoutePage()
 class AddActivityPage extends ConsumerWidget {
   const AddActivityPage({super.key});
 

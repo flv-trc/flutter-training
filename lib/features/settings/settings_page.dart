@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_training/core/firebase/authentication_service.dart';
 import 'package:flutter_training/screens/root.dart';
 
-
+@RoutePage()
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
 

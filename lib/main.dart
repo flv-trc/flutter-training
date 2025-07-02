@@ -6,51 +6,46 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:redux/redux.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 
-import 'core/firebase/analytics_service.dart';
 import 'core/redux/app_state.dart';
 import 'core/redux/reducer.dart';
 import 'firebase_options.dart';
-import 'routing/app_route_observer.dart';
-import 'routing/exports.dart';
-import 'screens/root.dart';
-
-final routeObserver = AppRouteObserver();
+import 'core/firebase/analytics_service.dart';
+import 'core/router/router.dart';
+import 'core/router/app_route_observer.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  runZonedGuarded(
-    () {
-      final store = Store<AppState>(
-        appReducer,
-        initialState: AppState(),
-      );
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+    final store = Store<AppState>(appReducer, initialState: AppState());
 
-      runApp(
-        ProviderScope(
-          child: StoreProvider<AppState>(
-            store: store,
-            child: const MainApp(),
-          ),
-        ),
-      );
-    },
-    FirebaseCrashlytics.instance.recordError,
-  );
+    runApp(
+      ProviderScope(
+        child: StoreProvider<AppState>(store: store, child: MainApp()),
+      ),
+    );
+  }, (erorr, stack) => FirebaseCrashlytics.instance.recordError);
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      getPages: AppRouter.getPages,
-      home: RootScreen(),
-      navigatorObservers: [routeObserver, AnalyticsService().analyticsObserver],
+    return MaterialApp.router(
+      routerConfig: _appRouter.config(
+        navigatorObservers: () => [
+          AppRouteObserver(),
+          AnalyticsService().analyticsObserver,
+        ],
+      ),
     );
   }
 }
