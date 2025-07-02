@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
+import 'package:flutter_training/core/router/urls.dart';
+
 import 'inbox_packages.dart';
-import '../../../../routing/exports.dart';
 
 class InboxMessageItem extends StatelessWidget {
   final InboxMessage message;
@@ -40,9 +43,8 @@ class InboxMessageItem extends StatelessWidget {
     );
 
     return InkWell(
-      onTap: () {
-        Get.toNamed(AppRouter.googleWebView);
-      },
+      onTap: () =>
+          context.pushRoute(WebViewRoute(url: Urls.google, title: 'Google')),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Row(

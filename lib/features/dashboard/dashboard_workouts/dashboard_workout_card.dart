@@ -1,10 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_training/core/redux/actions.dart';
 import 'package:flutter_training/core/redux/app_state.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:redux/redux.dart';
 
-import '../../../routing/exports.dart';
 import '../../workout/workout_model.dart';
 
 class WorkoutCard extends StatelessWidget {
@@ -20,7 +21,7 @@ class WorkoutCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, _WorkoutCardViewModel>(
-      builder: (_, vm) => _workoutCard(vm),
+      builder: (_, vm) => _workoutCard(context, vm),
       converter: (Store<AppState> store) {
         final updatedWorkout = store.state.workouts.firstWhere(
           (w) => w.id == workout.id,
@@ -37,7 +38,7 @@ class WorkoutCard extends StatelessWidget {
 }
 
 extension _WorkoutCardExtension on WorkoutCard {
-  Widget _workoutCard(_WorkoutCardViewModel vm) {
+  Widget _workoutCard(BuildContext context, _WorkoutCardViewModel vm) {
     final bookmarkButton = IconButton(
       icon: Container(
         decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
@@ -104,7 +105,7 @@ extension _WorkoutCardExtension on WorkoutCard {
     return SizedBox(
       width: cardWidth,
       child: InkWell(
-        onTap: () => Get.toNamed(AppRouter.workout, arguments: workout),
+        onTap: () => context.pushRoute(WorkoutRoute(workout: workout)),
         child: card,
       ),
     );

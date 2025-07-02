@@ -1,9 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/resources/images.dart';
-import 'package:flutter_training/routing/router.dart';
 import 'package:flutter_training/widgets/buttons.dart';
-import 'package:get/get.dart';
 
+@RoutePage()
 class RootScreen extends StatefulWidget {
   final bool showLoginOnStart;
 
@@ -17,18 +18,14 @@ class _RootScreenState extends State<RootScreen> {
   bool _loginPresented = false;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
+  Widget build(BuildContext context) {
     if (widget.showLoginOnStart && !_loginPresented) {
       _loginPresented = true;
 
-      Future.microtask(() => Get.toNamed(AppRouter.login));
+      final router = AutoRouter.of(context);
+      Future.microtask(() => router.push(LoginRoute()));
     }
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    
     var image = Image.asset(Images.rootBackground, fit: BoxFit.cover);
 
     return Scaffold(
@@ -42,7 +39,6 @@ class _RootScreenState extends State<RootScreen> {
   }
 }
 
-// Mark - Widget helpers for the Root Screen
 extension _RootScreenWidgets on _RootScreenState {
   Widget mainColumn(BuildContext context) {
     var image = Image.asset(
@@ -73,18 +69,14 @@ extension _RootScreenWidgets on _RootScreenState {
         Expanded(
           child: primaryButton(
             label: 'Join',
-            onPressed: () {
-              Get.toNamed(AppRouter.join);
-            },
+            onPressed: () => context.pushRoute(JoinRoute()),
           ),
         ),
         SizedBox(width: 20),
         Expanded(
           child: secondaryButton(
             label: 'Log in',
-            onPressed: () {
-              Get.toNamed(AppRouter.login);
-            },
+            onPressed: () => context.pushRoute(LoginRoute()),
           ),
         ),
       ],

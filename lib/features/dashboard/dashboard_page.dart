@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/app_bottom_navigation_bar.dart';
 
+@RoutePage()
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 

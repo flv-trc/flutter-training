@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -9,6 +10,7 @@ final profileProvider = StateNotifierProvider<ProfileNotifier, Profile>(
   (ref) => ProfileNotifier(),
 );
 
+@RoutePage()
 class ProfilePassPage extends ConsumerStatefulWidget {
   const ProfilePassPage({super.key});
 

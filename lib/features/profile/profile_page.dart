@@ -1,13 +1,15 @@
 import 'dart:io';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/features/profile/profile_model.dart';
 import 'package:flutter_training/features/profile/profile_notifier.dart';
 import 'package:flutter_training/widgets/app_divider.dart';
 import 'package:flutter_training/widgets/buttons.dart';
-import '../../routing/exports.dart';
 
+@RoutePage()
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
 
@@ -20,13 +22,17 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  void _onEditProfile() => Get.toNamed(AppRouter.editProfile);
+  void _onEditProfile(BuildContext context) =>
+      context.pushRoute(ProfileEditRoute());
 
-  void _onAddFriends() => Get.toNamed(AppRouter.findFriends);
+  void _onAddFriends(BuildContext context) =>
+      context.pushRoute(FindFriendsRoute());
 
-  void _onTapPass() => Get.toNamed(AppRouter.passProfile);
+  void _onTapPass(BuildContext context) =>
+      context.pushRoute(ProfilePassRoute());
 
-  void _onTapSettings() => Get.toNamed(AppRouter.settings);
+  void _onTapSettings(BuildContext context) =>
+      context.pushRoute(SettingsRoute());
 }
 
 extension ProfilePageWidgets on ProfilePage {
@@ -46,10 +52,10 @@ extension ProfilePageWidgets on ProfilePage {
                   topBar(context),
                   profileAvatar(profile.imagePath),
                   username(profile.fullName),
-                  editProfileButton,
-                  tabs,
+                  _editProfileButton(context),
+                  _tabs(context),
                   AppDivider(indent: 16, endIndent: 16),
-                  friendsSection(profile),
+                  _friendsSection(context, profile),
                 ],
               ),
             ),
@@ -96,27 +102,27 @@ extension ProfilePageWidgets on ProfilePage {
     );
   }
 
-  Padding get editProfileButton {
+  Padding _editProfileButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 100.0),
       child: SizedBox(
         width: double.infinity,
         child: flatTransparentButton(
           label: 'EDIT PROFILE',
-          onPressed: _onEditProfile,
+          onPressed: () => _onEditProfile(context),
         ),
       ),
     );
   }
 
-  Padding get tabs {
+  Padding _tabs(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 32, bottom: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           InkWell(
-            onTap: _onTapPass,
+            onTap: () => _onTapPass(context),
             child: Column(
               spacing: 4,
               children: const [Icon(Icons.badge_outlined), Text('Pass')],
@@ -126,7 +132,7 @@ extension ProfilePageWidgets on ProfilePage {
           Container(height: 40, width: 1, color: Colors.black12),
 
           InkWell(
-            onTap: _onTapSettings,
+            onTap: () => _onTapSettings(context),
             child: Column(
               spacing: 4,
               children: const [Icon(Icons.settings_outlined), Text('Settings')],
@@ -137,7 +143,7 @@ extension ProfilePageWidgets on ProfilePage {
     );
   }
 
-  Padding friendsSection(Profile profile) {
+  Padding _friendsSection(BuildContext context, Profile profile) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -154,7 +160,7 @@ extension ProfilePageWidgets on ProfilePage {
               width: double.infinity,
               child: flatTransparentButton(
                 label: 'ADD FRIENDS',
-                onPressed: _onAddFriends,
+                onPressed: () => _onAddFriends(context),
               ),
             ),
           ),

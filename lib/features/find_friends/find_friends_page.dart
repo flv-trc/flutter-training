@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/features/find_friends/find_friends_top_tab.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:flutter_training/routing/exports.dart';
 
+@RoutePage()
 class FindFriendsPage extends StatefulWidget {
   const FindFriendsPage({super.key});
 
@@ -52,12 +54,13 @@ class _FindFriendsPageState extends State<FindFriendsPage>
     }
   }
 
-  void _onSearchTap() => Get.toNamed(AppRouter.searchFriends);
+  void _onSearchTap(BuildContext context) =>
+      context.pushRoute(SearchFriendsRoute());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar,
+      appBar: _appBar(context),
       body: TabBarView(
         controller: _tabController,
         children: FindFriendsTopTab.values
@@ -67,7 +70,7 @@ class _FindFriendsPageState extends State<FindFriendsPage>
     );
   }
 
-  AppBar get _appBar {
+  AppBar _appBar(BuildContext context) {
     return AppBar(
       title: const Text(
         'FIND FRIENDS',
@@ -78,7 +81,7 @@ class _FindFriendsPageState extends State<FindFriendsPage>
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 12),
-          child: InkWell(onTap: _onSearchTap, child: const Icon(Icons.search)),
+          child: InkWell(onTap: () => _onSearchTap(context), child: const Icon(Icons.search)),
         ),
       ],
       bottom: TabBar(

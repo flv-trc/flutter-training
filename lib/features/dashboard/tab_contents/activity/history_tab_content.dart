@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'package:flutter_training/features/dashboard/tab_contents/activity/activity_viewmodel.dart';
 import 'package:flutter_training/widgets/app_divider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +9,6 @@ import 'package:flutter_training/widgets/buttons.dart';
 import '../../../../domain/model/activity.dart';
 import '../../../../widgets/number_and_subtitle.dart';
 import '../../../../widgets/tiles/activity_item.dart';
-import "../../../../routing/exports.dart";
 
 class HistoryTabContent extends ConsumerWidget {
   const HistoryTabContent({super.key});
@@ -60,7 +61,7 @@ class HistoryTabContent extends ConsumerWidget {
             ),
           ),
         ),
-        ..._buildGroupedSlivers(activitiesVM.activitiesGroupedByMonth),
+        ..._buildGroupedSlivers(context, activitiesVM.activitiesGroupedByMonth),
       ],
     );
   }
@@ -127,13 +128,16 @@ class HistoryTabContent extends ConsumerWidget {
   }
 }
 
-List<Widget> _buildGroupedSlivers(Map<String, List<Activity>> grouped) {
+List<Widget> _buildGroupedSlivers(
+  BuildContext context,
+  Map<String, List<Activity>> grouped,
+) {
   return grouped.entries.map((entry) {
     final title = entry.key;
     final group = entry.value;
 
     onActivityTap(activity) =>
-        Get.toNamed(AppRouter.activityInfo, arguments: activity);
+        context.pushRoute(ActivityInfoRoute(activity: activity));
 
     return SliverList(
       delegate: SliverChildListDelegate([

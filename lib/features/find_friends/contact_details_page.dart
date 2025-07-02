@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter_training/extensions/app_contact';
 import 'package:flutter_training/widgets/buttons.dart';
 
+@RoutePage()
 class ContactDetailsPage extends StatelessWidget {
   final Contact contact;
 
@@ -26,14 +28,14 @@ class ContactDetailsPage extends StatelessWidget {
               title: const Text('Block', style: TextStyle(color: Colors.red)),
               onTap: () {
                 contact.block();
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                context.router.pop();
+                context.router.pop();
               },
             ),
             const Divider(height: 1),
             ListTile(
               title: const Text('Cancel'),
-              onTap: () => Navigator.of(context).pop(),
+              onTap: () => context.router.pop(),
             ),
           ],
         ),

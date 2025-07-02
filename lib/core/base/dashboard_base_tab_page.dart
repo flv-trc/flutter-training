@@ -1,14 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 
 import '../../widgets/app_bottom_navigation_bar.dart';
-import '../../routing/exports.dart';
 
 abstract class DashboardBaseTabScreen extends StatelessWidget {
   const DashboardBaseTabScreen({super.key});
 
   AppNavigationBarItem get barItem;
-  Widget? get trailingItem => null;
+  Widget? trailingItem(BuildContext context) => null;
 
   Widget buildBody(BuildContext context);
 
@@ -21,7 +22,7 @@ abstract class DashboardBaseTabScreen extends StatelessWidget {
           slivers: [
             CupertinoSliverNavigationBar(
               leading: InkWell(
-                onTap: () => Get.toNamed(AppRouter.profile),
+                onTap: () => context.pushRoute(ProfileRoute()),
                 child: const Icon(
                   Icons.account_circle,
                   color: Colors.grey,
@@ -29,7 +30,7 @@ abstract class DashboardBaseTabScreen extends StatelessWidget {
                 ),
               ),
               largeTitle: Text(barItem.label),
-              trailing: trailingItem,
+              trailing: trailingItem(context),
             ),
 
             SliverFillRemaining(child: buildBody(context)),

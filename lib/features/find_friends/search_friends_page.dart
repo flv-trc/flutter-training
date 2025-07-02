@@ -1,9 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 import 'search_friends_notifier.dart';
-import 'package:flutter_training/routing/exports.dart';
 
+@RoutePage()
 class SearchFriendsPage extends ConsumerStatefulWidget {
   const SearchFriendsPage({super.key});
 
@@ -26,7 +28,7 @@ class _SearchFriendsPageState extends ConsumerState<SearchFriendsPage> {
 
   void _clearSearch() {
     if (_controller.text.trim().isEmpty) {
-      Navigator.of(context).pop();
+      context.router.pop();
       return;
     }
     _controller.clear();
@@ -67,7 +69,7 @@ class _SearchFriendsPageState extends ConsumerState<SearchFriendsPage> {
                   ),
                 ),
               ),
-              Expanded(child: _buildResults(resultsAsync)),
+              Expanded(child: _buildResults(context, resultsAsync)),
             ],
           ),
         ),
@@ -112,7 +114,7 @@ extension _SearchFriendsPageStateWidgets on _SearchFriendsPageState {
     child: const Text('Cancel'),
   );
 
-  Widget _buildResults(AsyncValue<List<Contact>> resultsAsync) {
+  Widget _buildResults(BuildContext context, AsyncValue<List<Contact>> resultsAsync) {
     return resultsAsync.when(
       data: (results) {
         if (_controller.text.length < 3) return const SizedBox();
@@ -125,7 +127,7 @@ extension _SearchFriendsPageStateWidgets on _SearchFriendsPageState {
             title: Text(results[index].displayName ?? ''),
             onTap: () {
               _clearSearch();
-              Get.toNamed(AppRouter.contactDetails, arguments: results[index]);
+              context.pushRoute(ContactDetailsRoute(contact: results[index]));
             },
           ),
         );

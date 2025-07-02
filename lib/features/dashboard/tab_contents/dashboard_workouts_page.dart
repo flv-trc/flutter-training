@@ -1,10 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_training/core/redux/app_state.dart';
-import 'package:get/get.dart';
+import 'package:flutter_training/core/router/router.gr.dart';
 
 import '../../../core/base/dashboard_base_tab_page.dart';
-import '../../../routing/router.dart';
 import '../../../widgets/app_bottom_navigation_bar.dart';
 import 'workout/workouts_top_tab.dart';
 
@@ -15,9 +15,9 @@ class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
   AppNavigationBarItem get barItem => AppNavigationBarItem.workouts;
 
   @override
-  Widget? get trailingItem => IconButton(
+  Widget? trailingItem(BuildContext context) => IconButton(
     icon: Icon(Icons.bookmark_border),
-    onPressed: _onBookmarkPressed,
+    onPressed: () => _onBookmarkPressed(context),
   );
 
   @override
@@ -29,14 +29,13 @@ class DashboardWorkoutsScreen extends DashboardBaseTabScreen {
     );
   }
 
-  void _onBookmarkPressed() {
-    if (Get.context == null) return;
-    final store = StoreProvider.of<AppState>(Get.context!);
+  void _onBookmarkPressed(BuildContext context) {
+    final store = StoreProvider.of<AppState>(context);
 
     final favoriteWorkouts = store.state.workouts
         .where((w) => w.isFavorite)
         .toList();
-
-    Get.toNamed(AppRouter.savedWorkouts, arguments: favoriteWorkouts);
+        
+    context.pushRoute(SavedWorkoutsRoute(savedWorkouts: favoriteWorkouts));
   }
 }
