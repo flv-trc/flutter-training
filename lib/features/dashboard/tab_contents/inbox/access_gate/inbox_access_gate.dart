@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+
 import '../inbox_packages.dart';
 import 'inbox_access_viewmodel.dart';
 import 'inbox_permission_page.dart';
@@ -29,7 +31,7 @@ class _InboxAccessGateState extends ConsumerState<InboxAccessGate> {
       _hasPresented = true;
 
       void handleDismiss() {
-        Navigator.of(context).pop();
+        context.router.pop();
         accessVM.closePermissionScreen();
       }
 

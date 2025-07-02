@@ -28,14 +28,14 @@ class ContactDetailsPage extends StatelessWidget {
               title: const Text('Block', style: TextStyle(color: Colors.red)),
               onTap: () {
                 contact.block();
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                context.router.pop();
+                context.router.pop();
               },
             ),
             const Divider(height: 1),
             ListTile(
               title: const Text('Cancel'),
-              onTap: () => Navigator.of(context).pop(),
+              onTap: () => context.router.pop(),
             ),
           ],
         ),

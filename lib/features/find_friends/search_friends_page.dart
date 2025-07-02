@@ -28,7 +28,7 @@ class _SearchFriendsPageState extends ConsumerState<SearchFriendsPage> {
 
   void _clearSearch() {
     if (_controller.text.trim().isEmpty) {
-      Navigator.of(context).pop();
+      context.router.pop();
       return;
     }
     _controller.clear();

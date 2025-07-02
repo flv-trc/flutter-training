@@ -52,7 +52,7 @@ class ExternalUrlPage extends StatelessWidget {
         throw ('Could not launch $url');
       } finally {
         if (context.mounted) {
-          Navigator.of(context).pop();
+          context.router.pop();
         }
       }
     });

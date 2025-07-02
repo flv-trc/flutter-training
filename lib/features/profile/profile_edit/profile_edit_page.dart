@@ -97,7 +97,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
       onPressed: profile.saveEnabled
           ? () {
               profileNotifier.commit();
-              Navigator.of(context).pop();
+              context.router.pop();
             }
           : null,
       child: Text(
@@ -116,7 +116,7 @@ extension ProfileEditPageWidgets on ProfileEditPage {
       ),
       onPressed: () {
         profileNotifier.reset();
-        Navigator.of(context).pop();
+        context.router.pop();
       },
       child: const Text(
         'Cancel',
