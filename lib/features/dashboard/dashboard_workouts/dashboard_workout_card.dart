@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:flutter_training/core/redux/actions.dart';
+import 'package:flutter_training/core/redux/app_state.dart';
+import 'package:redux/redux.dart';
 
 import '../../../routing/exports.dart';
 import '../../workout/workout_model.dart';
 
-class WorkoutCard extends StatefulWidget {
+class WorkoutCard extends StatelessWidget {
   final WorkoutModel workout;
   final double cardWidth;
+
   const WorkoutCard({
     super.key,
     required this.workout,
@@ -13,42 +18,42 @@ class WorkoutCard extends StatefulWidget {
   });
 
   @override
-  State<WorkoutCard> createState() => _WorkoutCardState();
+  Widget build(BuildContext context) {
+    return StoreConnector<AppState, _WorkoutCardViewModel>(
+      builder: (_, vm) => _workoutCard(vm),
+      converter: (Store<AppState> store) {
+        final updatedWorkout = store.state.workouts.firstWhere(
+          (w) => w.id == workout.id,
+          orElse: () => workout,
+        );
+        return _WorkoutCardViewModel(
+          isFavorite: updatedWorkout.isFavorite,
+          toggleFavorite: () =>
+              store.dispatch(ToggleFavoriteAction(workout.id)),
+        );
+      },
+    );
+  }
 }
 
-class _WorkoutCardState extends State<WorkoutCard> {
-  late bool isFavorite;
-
-  @override
-  void initState() {
-    super.initState();
-    isFavorite = widget.workout.isFavorite;
-  }
-
-  void _toggleFavorite() {
-    setState(() {
-      isFavorite = !isFavorite;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+extension _WorkoutCardExtension on WorkoutCard {
+  Widget _workoutCard(_WorkoutCardViewModel vm) {
     final bookmarkButton = IconButton(
       icon: Container(
         decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
         padding: const EdgeInsets.all(6),
         child: Icon(
-          isFavorite ? Icons.bookmark : Icons.bookmark_border,
+          vm.isFavorite ? Icons.bookmark : Icons.bookmark_border,
           color: Colors.black,
           size: 28,
         ),
       ),
-      onPressed: _toggleFavorite,
+      onPressed: vm.toggleFavorite,
       splashRadius: 24,
     );
 
     final title = Text(
-      widget.workout.name,
+      workout.name,
       style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
@@ -60,7 +65,7 @@ class _WorkoutCardState extends State<WorkoutCard> {
     );
 
     final subtitle = Text(
-      '${widget.workout.duration} min, ${widget.workout.difficultyLevel}',
+      '${workout.duration} min, ${workout.difficultyLevel}',
       style: const TextStyle(
         color: Colors.white,
         fontSize: 15,
@@ -70,38 +75,48 @@ class _WorkoutCardState extends State<WorkoutCard> {
       ),
     );
 
-    return SizedBox(
-      width: widget.cardWidth,
-      child: InkWell(
-        onTap: () {
-          Get.toNamed(AppRouter.workout, arguments: widget.workout);
-        },
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: widget.workout.imageUrl != null
-                    ? Image.asset(widget.workout.imageUrl!, fit: BoxFit.cover)
-                    : Container(color: Colors.black26),
-              ),
-
-              Positioned(top: 12, right: 12, child: bookmarkButton),
-
-              Positioned(
-                left: 16,
-                right: 16,
-                bottom: 24,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  spacing: 4,
-                  children: [title, subtitle],
-                ),
-              ),
-            ],
+    final card = Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: workout.imageUrl != null
+                ? Image.asset(workout.imageUrl!, fit: BoxFit.cover)
+                : Container(color: Colors.black26),
           ),
-        ),
+
+          Positioned(top: 12, right: 12, child: bookmarkButton),
+
+          Positioned(
+            left: 16,
+            right: 16,
+            bottom: 24,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 4,
+              children: [title, subtitle],
+            ),
+          ),
+        ],
+      ),
+    );
+
+    return SizedBox(
+      width: cardWidth,
+      child: InkWell(
+        onTap: () => Get.toNamed(AppRouter.workout, arguments: workout),
+        child: card,
       ),
     );
   }
+}
+
+class _WorkoutCardViewModel {
+  final bool isFavorite;
+  final VoidCallback toggleFavorite;
+
+  _WorkoutCardViewModel({
+    required this.isFavorite,
+    required this.toggleFavorite,
+  });
 }

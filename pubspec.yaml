@@ -35,6 +35,9 @@ dependencies:
   screen_brightness: ^2.1.5
   permission_handler: ^12.0.0+1
   contacts_service: ^0.6.3
+  flutter_redux: ^0.10.0
+  redux: ^5.0.0
+  widgetbook: ^3.14.3
 
 dev_dependencies:
   flutter_test:
